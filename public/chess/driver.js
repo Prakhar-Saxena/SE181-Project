@@ -1,8 +1,26 @@
 import Board from './board.js';
 import * as pieces from './piece.js';
 
-var newBoard = new Board();
-console.log(newBoard.board);
+class Game{
 
-var pawn = newBoard.getPiece(1,0);
-console.log( pawn.calcMove() );
+    constructor(){
+        this.thisBoard = new Board();
+        console.log(this.thisBoard.board);
+    }
+
+    start(){
+        this.currentPlayer = 0;
+    }
+
+    endTurn(){
+        if(this.currentPlayer == 0){
+
+        }
+    }
+
+}
+
+
+var game = new Game();
+game.start();
+

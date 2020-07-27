@@ -42,6 +42,33 @@ export default class Board{
         return thisRow[col];
     }
 
+    movePiece(pieceRow, pieceCol, newRow, newCol){
+        if(!this.isOnBoard(newRow, newCol)){
+            console.log("Move outside of board");
+            return;
+        }
+
+        var pieceHold = this.board.getPiece(pieceRow, pieceCol);
+        this.board[pieceRow][pieceCol] = null;
+        this.board[newRow][newCol] = pieceHold;
+
+    }
+
+    isOnBoard(row, col){
+        if(row > 7 || col > 7 || row < 0 || col < 0)
+            return false;
+        return true;
+    }
+
+    isCheckMate(){
+        //return a boolean if the current board state is a checkmate condition, maybe return not a boolean maybe the team that is victorious and -1 for no win
+        //idk, figure it out
+    }
+
+    validateMoves(piece, moves){
+                
+    }
+
 }
 
 function newRow(row, rowCount, team){
@@ -60,4 +87,18 @@ function pawnRow(row, rowCount, team){
         var piece = new pieces.Pawn(rowCount,j, 0); 
         row.push(piece); 
     }
+}
+
+
+//Obstruction tests
+function diagonalCheck(row, col, targetRow, targetCol){
+
+}
+
+function horizontalCheck(row, col, targetRow, targetCol){
+
+}
+
+function verticalCheck(row, col, targetRow, targetCol){
+
 }
