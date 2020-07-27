@@ -1,4 +1,8 @@
-import {Bishop} from './piece.js';
+import Board from './board.js';
+import * as pieces from './piece.js';
 
-var booty = new Bishop("Cheecks");
-booty.calcMove(0,0);
+var newBoard = new Board();
+console.log(newBoard.board);
+
+var pawn = newBoard.getPiece(1,0);
+console.log( pawn.calcMove() );

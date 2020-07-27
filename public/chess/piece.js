@@ -6,83 +6,113 @@
 
 
 class Piece{
-    constructor(id, initX, initY){
-        this.id = id;
+    constructor(initX, initY, team){
+        this.id = initX.toString() + initY + team;
         this.locationMap = [(initX,initY)];
+        this.team = team;
+        this.currentX = initX;
+        this.currentY = initY;
     }
 
-    calcMove(currentX, currentY){
+    calcMove(){
         console.log("Wrong use dummy");
+    }
+
+    getPieceType(){
+        return "None";
     }
 }
 
 export class Pawn extends Piece{
-    constructor(id){
-        super(id);
+    constructor(initX, initY, team){
+        super(initX, initY, team);
     }
 
-    calcMove(currentX, currentY){
+    calcMove(){
+        var possibleMoves = []
         console.log("Pawn stuff");
+
         //Return array of tuples with possible coordinates
+        if(this.team == 1){
+            possibleMoves.push( [this.currentX - 1, this.currentY] );
+        }
+        else{
+            possibleMoves.push( [this.currentX + 1, this.currentY] );
+        }
 
         //is First move and can slide two spaces
         if(this.locationMap.length == 1){
-            //First move logic
+            if(this.team == 1){
+                possibleMoves.push( [this.currentX - 2, this.currentY] );
+            }
+            else{
+                possibleMoves.push( [this.currentX + 2, this.currentY] );
+            }
         }
 
+        return possibleMoves;
+    }
+
+
+    getPieceType(){
+        return "Pawn";
     }
 }
 
 export class Bishop extends Piece{
-    constructor(id){
-        super(id);
+    constructor(initX, initY, team){
+        super(initX, initY, team);
     }
 
-    calcMove(currentX, currentY){
+    calcMove(){
         console.log("Bishop Move Calc");
         //Return array of tuples with possible coordinates
+    }
+
+    getPieceType(){
+        return "Bishop";
     }
 }
 
 export class Rook extends Piece{
-    constructor(id){
-        super(id);
+    constructor(initX, initY, team){
+        super(initX, initY, team);
     }
 
-    calcMove(currentX, currentY){
+    calcMove(){
         console.log("Rook Move Calc");
         //Return array of tuples with possible coordinates
     }
 }
 
 export class Queen extends Piece{
-    constructor(id){
-        super(id);
+    constructor(initX, initY, team){
+        super(initX, initY, team);
     }
 
-    calcMove(currentX, currentY){
+    calcMove(){
         console.log("Queen Move Calc");
         //Return array of tuples with possible coordinates
     }
 }
 
 export class King extends Piece{
-    constructor(id){
-        super(id);
+    constructor(initX, initY, team){
+        super(initX, initY, team);
     }
 
-    calcMove(currentX, currentY){
+    calcMove(){
         console.log("King Move Calc");
         //Return array of tuples with possible coordinates
     }
 }
 
 export class Knight extends Piece{
-    constructor(id){
-        super(id);
+    constructor(initX, initY, team){
+        super(initX, initY, team);
     }
 
-    calcMove(currentX, currentY){
+    calcMove(){
         console.log("Knight Move Calc");
         //Return array of tuples with possible coordinates
     }
