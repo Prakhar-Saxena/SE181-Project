@@ -65,8 +65,15 @@ export class Bishop extends Piece{
     }
 
     calcMove(){
+        var possibleMoves = []
         console.log("Bishop Move Calc");
         //Return array of tuples with possible coordinates
+        for (var i = 0; i < 8; i++){
+            possibleMoves.push( [this.currentX + i, this.currentY + i] );
+            possibleMoves.push( [this.currentY - i, this.currentY - i] );
+            possibleMoves.push( [this.currentX + i, this.currentY - i] );
+            possibleMoves.push( [this.currentX - i, this.currentY + i] );
+        }
     }
 
     getPieceType(){
