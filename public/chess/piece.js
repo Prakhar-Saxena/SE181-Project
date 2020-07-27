@@ -74,6 +74,7 @@ export class Bishop extends Piece{
             possibleMoves.push( [this.currentX + i, this.currentY - i] );
             possibleMoves.push( [this.currentX - i, this.currentY + i] );
         }
+        return possibleMoves;
     }
 
     getPieceType(){
@@ -89,6 +90,12 @@ export class Rook extends Piece{
     calcMove(){
         console.log("Rook Move Calc");
         //Return array of tuples with possible coordinates
+        var possibleMoves = []
+        for (var i = 0; i < 8; i ++){
+            possibleMoves.push( [i, this.currentY] );
+            possibleMoves.push( [this.currentX, i] );
+        }
+        return possibleMoves;
     }
 }
 
@@ -111,6 +118,16 @@ export class King extends Piece{
     calcMove(){
         console.log("King Move Calc");
         //Return array of tuples with possible coordinates
+        var possibleMoves = []
+        possibleMoves.push( [this.currentX      , this.currentY + 1 ] );
+        possibleMoves.push( [this.currentX + 1  , this.currentY + 1 ] );
+        possibleMoves.push( [this.currentX + 1  , this.currentY     ] );
+        possibleMoves.push( [this.currentX + 1  , this.currentY - 1 ] );
+        possibleMoves.push( [this.currentX      , this.currentY - 1 ] );
+        possibleMoves.push( [this.currentX - 1  , this.currentY - 1 ] );
+        possibleMoves.push( [this.currentX - 1  , this.currentY     ] );
+        possibleMoves.push( [this.currentX - 1  , this.currentY + 1 ] );
+        return possibleMoves;
     }
 }
 
