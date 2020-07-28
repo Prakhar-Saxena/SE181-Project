@@ -91,6 +91,7 @@ export default class Board{
                     var checkBool = this.inCheck(this.activePieces[i], kingMoves[j])
                     if(checkBool == true){
                         checkMoves++;
+                        kingMoves.splice(j,1); //if registered as check, remove from list in order to prevent duplicates
                     }
                 }
             }
