@@ -22,5 +22,9 @@ class Game{
 
 
 var game = new Game();
-game.start();
+var piece = game.thisBoard.getPiece(1,0);
+//Proves out move logic for right
+var moves = [ [1,2] , [1,3] , [1,5] ];
+var validMoves = game.thisBoard.validateMoves(piece, moves);
+console.log(validMoves);
 
