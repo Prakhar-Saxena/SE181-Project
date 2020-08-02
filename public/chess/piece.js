@@ -10,8 +10,8 @@ class Piece{
         this.id = initX.toString() + initY + team;
         this.locationMap = [(initX,initY)];
         this.team = team;
-        this.currentX = initX;
-        this.currentY = initY;
+        this.currentRow = initX;
+        this.currentCol = initY;
     }
 
     calcMove(){
@@ -34,19 +34,19 @@ export class Pawn extends Piece{
 
         //Return array of tuples with possible coordinates
         if(this.team == 1){
-            possibleMoves.push( [this.currentX - 1, this.currentY] );
+            possibleMoves.push( [this.currentRow - 1, this.currentCol] );
         }
         else{
-            possibleMoves.push( [this.currentX + 1, this.currentY] );
+            possibleMoves.push( [this.currentRow + 1, this.currentCol] );
         }
 
         //is First move and can slide two spaces
         if(this.locationMap.length == 1){
             if(this.team == 1){
-                possibleMoves.push( [this.currentX - 2, this.currentY] );
+                possibleMoves.push( [this.currentRow - 2, this.currentCol] );
             }
             else{
-                possibleMoves.push( [this.currentX + 2, this.currentY] );
+                possibleMoves.push( [this.currentRow + 2, this.currentCol] );
             }
         }
 
@@ -69,10 +69,10 @@ export class Bishop extends Piece{
         console.log("Bishop Move Calc");
         //Return array of tuples with possible coordinates
         for (var i = 0; i < 8; i++){
-            possibleMoves.push( [this.currentX + i, this.currentY + i] );
-            possibleMoves.push( [this.currentY - i, this.currentY - i] );
-            possibleMoves.push( [this.currentX + i, this.currentY - i] );
-            possibleMoves.push( [this.currentX - i, this.currentY + i] );
+            possibleMoves.push( [this.currentRow + i, this.currentCol + i] );
+            possibleMoves.push( [this.currentCol - i, this.currentCol - i] );
+            possibleMoves.push( [this.currentRow + i, this.currentCol - i] );
+            possibleMoves.push( [this.currentRow - i, this.currentCol + i] );
         }
         return possibleMoves;
     }
@@ -92,8 +92,8 @@ export class Rook extends Piece{
         //Return array of tuples with possible coordinates
         var possibleMoves = [];
         for (var i = 0; i < 8; i ++){
-            possibleMoves.push( [i, this.currentY] );
-            possibleMoves.push( [this.currentX, i] );
+            possibleMoves.push( [i, this.currentCol] );
+            possibleMoves.push( [this.currentRow, i] );
         }
         return possibleMoves;
     }
@@ -107,8 +107,8 @@ export class Queen extends Piece, Bishop, Rook{
     calcMove(){
         console.log("Queen Move Calc");
         //Return array of tuples with possible coordinates
-        var tempBishop = new Bishop(this.currentX, this.currentY, this.team);
-        var tempRook = new Rook(this.currentX, this.currentY, this.team);
+        var tempBishop = new Bishop(this.currentRow, this.currentCol, this.team);
+        var tempRook = new Rook(this.currentRow, this.currentCol, this.team);
         let possibleMovesBishop = tempBishop.calcMove();
         let possibleMovesRook = tempRook.calcMove();
         tempBishop = null;
@@ -127,14 +127,14 @@ export class King extends Piece{
         console.log("King Move Calc");
         //Return array of tuples with possible coordinates
         var possibleMoves = [];
-        possibleMoves.push( [this.currentX      , this.currentY + 1 ] );
-        possibleMoves.push( [this.currentX + 1  , this.currentY + 1 ] );
-        possibleMoves.push( [this.currentX + 1  , this.currentY     ] );
-        possibleMoves.push( [this.currentX + 1  , this.currentY - 1 ] );
-        possibleMoves.push( [this.currentX      , this.currentY - 1 ] );
-        possibleMoves.push( [this.currentX - 1  , this.currentY - 1 ] );
-        possibleMoves.push( [this.currentX - 1  , this.currentY     ] );
-        possibleMoves.push( [this.currentX - 1  , this.currentY + 1 ] );
+        possibleMoves.push( [this.currentRow      , this.currentCol + 1 ] );
+        possibleMoves.push( [this.currentRow + 1  , this.currentCol + 1 ] );
+        possibleMoves.push( [this.currentRow + 1  , this.currentCol     ] );
+        possibleMoves.push( [this.currentRow + 1  , this.currentCol - 1 ] );
+        possibleMoves.push( [this.currentRow      , this.currentCol - 1 ] );
+        possibleMoves.push( [this.currentRow - 1  , this.currentCol - 1 ] );
+        possibleMoves.push( [this.currentRow - 1  , this.currentCol     ] );
+        possibleMoves.push( [this.currentRow - 1  , this.currentCol + 1 ] );
         return possibleMoves;
     }
 }
@@ -148,14 +148,14 @@ export class Knight extends Piece{
         console.log("Knight Move Calc");
         //Return array of tuples with possible coordinates
         var possibleMoves = [];
-        possibleMoves.push( [this.currentX - 1, this.currentY + 2] );
-        possibleMoves.push( [this.currentX + 1, this.currentY + 2] );
-        possibleMoves.push( [this.currentX + 2, this.currentY + 1] );
-        possibleMoves.push( [this.currentX + 2, this.currentY - 1] );
-        possibleMoves.push( [this.currentX + 1, this.currentY - 2] );
-        possibleMoves.push( [this.currentX - 1, this.currentY - 2] );
-        possibleMoves.push( [this.currentX - 2, this.currentY - 1] );
-        possibleMoves.push( [this.currentX - 2, this.currentY + 1] );
+        possibleMoves.push( [this.currentRow - 1, this.currentCol + 2] );
+        possibleMoves.push( [this.currentRow + 1, this.currentCol + 2] );
+        possibleMoves.push( [this.currentRow + 2, this.currentCol + 1] );
+        possibleMoves.push( [this.currentRow + 2, this.currentCol - 1] );
+        possibleMoves.push( [this.currentRow + 1, this.currentCol - 2] );
+        possibleMoves.push( [this.currentRow - 1, this.currentCol - 2] );
+        possibleMoves.push( [this.currentRow - 2, this.currentCol - 1] );
+        possibleMoves.push( [this.currentRow - 2, this.currentCol + 1] );
         return possibleMoves;
     }
 }
