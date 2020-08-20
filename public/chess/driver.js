@@ -93,16 +93,6 @@ function addListeners(){
     }
 }
 
-
-/*
-var game = new Game();
-var piece = game.thisBoard.getPiece(1,0);
-//Proves out move logic for right
-var moves = [ [1,2] , [1,3] , [1,5] ];
-var validMoves = game.thisBoard.validateMoves(piece, moves);
-console.log(validMoves);
-*/
-
 //console.log(document.getElementById("00"));
 
 window.onload = function(){
@@ -110,3 +100,10 @@ window.onload = function(){
     addListeners();
     //document.getElementById("60").innerHTML += '<img src="/chess/images/pawn.png">';
 }
+
+var game = new Game();
+var piece = game.thisBoard.getPiece(1,4);
+//Proves out move logic for right 
+var moves = [ [0,5] , [0,3] , [2,3] , [2,5]];
+var validMoves = game.thisBoard.validateMoves(piece, moves);
+console.log("Valid Moves : " + validMoves);

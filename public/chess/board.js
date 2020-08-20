@@ -18,7 +18,7 @@ export default class Board{
                     break;
 
                 case 1:
-                    toReturn[i] = [new pieces.Pawn(1,0,0), null, null, null, new pieces.Pawn(1,4,0), null, null, null];
+                    toReturn[i] = [null, new pieces.Pawn(1,1,0), null, null, new pieces.Pawn(1,4,0), null, null, null];
                     //pawnRow(toReturn[i], i, 0);
                     break;
 
@@ -77,36 +77,27 @@ export default class Board{
             //We are valid to start, will perform tests to invalidate
             var valid = true;
 
+            //Cut down on operations by guessing the movement
             //Same Row?
             if(piece.currentRow == move[0]){
-
-                //Column Iterator
-                var colIter;
-
-                //Is the move to the right?
-                if(move[1] > piece.currentCol){
-
-                    //Iterate to the right starting one move ahead
-                    for(colIter = (piece.currentCol + 1);  colIter <= move[1];  colIter++){
-                        //Do we hit another piece?
-                        if(this.getPiece(piece.currentRow, colIter) != null){
-                            var otherPiece = this.getPiece(piece.currentRow, colIter);
-                            //Are they the same team, therefore blocked?
-                            if(otherPiece.team == piece.team){
-                                valid = false;
-                            }
-                        }
-                    }
+                //Must pass the check
+                if(!horizontalCheck(this, piece, move)){
+                    valid = false;
                 }
-                //Else it is to the left
-                else{
-                    console.log("Left check under construction");
-                }
+                
             }
             //Same Column?
             else if(move[1] == piece.currentCol){
-                console.log("Same column borked");
-                break;
+                //Must pass the check
+                if(!verticalCheck(this, piece, move)){
+                    valid = false;
+                }
+            }
+            //Diagonal check from coords https://math.stackexchange.com/questions/1194565/how-to-know-if-two-points-are-diagonally-aligned
+            else if( Math.abs(piece.currentRow - move[0]) == Math.abs(piece.currentCol - move[1]) ){
+                if(!diagonalCheck(this, piece, move)){
+                    valid = false;
+                }
             }
 
             //Did we make it past the tests? If so it is a valid move
@@ -121,6 +112,10 @@ export default class Board{
 
         return validMoves;
     }
+
+
+    //Helperss (Duct Tape)
+
 
 }
 
@@ -144,14 +139,168 @@ function pawnRow(row, rowCount, team){
 
 
 //Obstruction tests
-function diagonalCheck(row, col, targetRow, targetCol){
+
+//I hate this function
+function diagonalCheck(board, piece, move){
+    var iterCount = Math.abs(piece.currentRow - move[0]);
+    var iterator;
+
+    //Down?
+    if(move[0] > piece.currentRow){
+        //Right or Left?
+        if(move[1] > piece.currentCol){
+
+            //Down and Right
+            //Start from one for offset when checking
+            for(iterator = 1; iterator <= iterCount; iterator++){
+                //Do we hit another piece?
+                if(board.getPiece(piece.currentRow + iterator, piece.currentCol + iterator) != null){
+                    var otherPiece = board.getPiece(piece.currentRow + iterator, piece.currentCol + iterator);
+                    //Are they the same team, therefore blocked?
+                    if(otherPiece.team == piece.team){
+                        return false;
+                    }
+                }
+            }
+
+        }
+        else{
+
+            //Down and Left
+            //Start from one for offset when checking
+            for(iterator = 1; iterator <= iterCount; iterator++){
+                //Do we hit another piece?
+                if(board.getPiece(piece.currentRow + iterator, piece.currentCol - iterator) != null){
+                    var otherPiece = board.getPiece(piece.currentRow + iterator, piece.currentCol - iterator);
+                    //Are they the same team, therefore blocked?
+                    if(otherPiece.team == piece.team){
+                        return false;
+                    }
+                }
+            }
+
+        }
+    }
+    //Else we are up
+    else{
+
+        //Right or Left?
+        if(move[1] > piece.currentCol){
+
+            //Up and Right
+            //Start from one for offset when checking
+            for(iterator = 1; iterator <= iterCount; iterator++){
+                //Do we hit another piece?
+                if(board.getPiece(piece.currentRow - iterator, piece.currentCol + iterator) != null){
+                    var otherPiece = board.getPiece(piece.currentRow - iterator, piece.currentCol + iterator);
+                    //Are they the same team, therefore blocked?
+                    if(otherPiece.team == piece.team){
+                        return false;
+                    }
+                }
+            }
+
+        }
+        else{
+
+            //Up and Left
+            //Start from one for offset when checking
+            for(iterator = 1; iterator <= iterCount; iterator++){
+                //Do we hit another piece?
+                if(board.getPiece(piece.currentRow - iterator, piece.currentCol - iterator) != null){
+                    var otherPiece = board.getPiece(piece.currentRow - iterator, piece.currentCol - iterator);
+                    //Are they the same team, therefore blocked?
+                    if(otherPiece.team == piece.team){
+                        return false;
+                    }
+                }
+            }
+
+        }
+
+    }
+
+    //Move checks out
+    return true;
 
 }
 
-function horizontalCheck(row, col, targetRow, targetCol){
+function horizontalCheck(board, piece, move){
+    var colIter;
 
+    //Is the move to the right?
+    if(move[1] > piece.currentCol){
+
+        //Iterate to the right starting one move to the right
+        for(colIter = (piece.currentCol + 1);  colIter <= move[1];  colIter++){
+            //Do we hit another piece?
+            if(board.getPiece(piece.currentRow, colIter) != null){
+                var otherPiece = board.getPiece(piece.currentRow, colIter);
+                //Are they the same team, therefore blocked?
+                if(otherPiece.team == piece.team){
+                    return false;
+                }
+            }
+        }
+
+    }
+    //Else it is to the left
+    else{
+
+        //Iterate to the left starting one move to the left
+        for(colIter = (piece.currentCol - 1); colIter >= move[1]; colIter--){
+            //Do we hit another piece?
+            if(board.getPiece(piece.currentRow, colIter) != null){
+                var otherPiece = board.getPiece(piece.currentRow, colIter);
+                //Are they the same team, therefore blocked?
+                if(otherPiece.team == piece.team){
+                    return false;
+                }
+            }
+        }
+    }
+
+    //Move checks out
+    return true;
 }
 
-function verticalCheck(row, col, targetRow, targetCol){
+function verticalCheck(board, piece, move){
+    var rowIter;
 
+    // Vertical is top down from 0 - 7
+
+    //Is the move down?
+    if(move[0] > piece.currentRow){
+
+        //Iterate down starting one move down
+        for(rowIter = (piece.currentRow + 1);  rowIter <= move[0];  rowIter++){
+            //Do we hit another piece?
+            if(board.getPiece(rowIter, piece.currentCol) != null){
+                var otherPiece = board.getPiece(rowIter, piece.currentCol);
+                //Are they the same team, therefore blocked?
+                if(otherPiece.team == piece.team){
+                    return false;
+                }
+            }
+        }
+
+    }
+    //Else it is up
+    else{
+
+        //Iterate up starting one move up
+        for(rowIter = (piece.currentRow - 1); rowIter >= move[0]; rowIter--){
+            //Do we hit another piece?
+            if(board.getPiece(rowIter, piece.currentCol) != null){
+                var otherPiece = board.getPiece(rowIter, piece.currentCol);
+                //Are they the same team, therefore blocked?
+                if(otherPiece.team == piece.team){
+                    return false;
+                }
+            }
+        }
+    }
+
+    //Move checks out
+    return true;
 }
