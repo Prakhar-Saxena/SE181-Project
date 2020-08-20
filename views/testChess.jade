@@ -2,5 +2,7 @@ extends layout
 
 block content
   h1= Chess
-  script(type="module", src='/chess/driver.js').
   p Welcome to #{title}
+  p(style='white-space:pre;' id="boardContainer")
+  script(type="module", src='/chess/driver.js')
+  

@@ -18,7 +18,8 @@ export default class Board{
                     break;
 
                 case 1:
-                    pawnRow(toReturn[i], i, 0);
+                    toReturn[i] = [new pieces.Pawn(1,0,0), null, null, null, new pieces.Pawn(1,4,0), null, null, null];
+                    //pawnRow(toReturn[i], i, 0);
                     break;
 
                 case 6:
@@ -66,7 +67,59 @@ export default class Board{
     }
 
     validateMoves(piece, moves){
-                
+        var validMoves = [];
+
+        for(var i = 0; i < moves.length; i++){
+
+            //Get each move from the list
+            var move = moves[i];
+
+            //We are valid to start, will perform tests to invalidate
+            var valid = true;
+
+            //Same Row?
+            if(piece.currentRow == move[0]){
+
+                //Column Iterator
+                var colIter;
+
+                //Is the move to the right?
+                if(move[1] > piece.currentCol){
+
+                    //Iterate to the right starting one move ahead
+                    for(colIter = (piece.currentCol + 1);  colIter <= move[1];  colIter++){
+                        //Do we hit another piece?
+                        if(this.getPiece(piece.currentRow, colIter) != null){
+                            var otherPiece = this.getPiece(piece.currentRow, colIter);
+                            //Are they the same team, therefore blocked?
+                            if(otherPiece.team == piece.team){
+                                valid = false;
+                            }
+                        }
+                    }
+                }
+                //Else it is to the left
+                else{
+                    console.log("Left check under construction");
+                }
+            }
+            //Same Column?
+            else if(move[1] == piece.currentCol){
+                console.log("Same column borked");
+                break;
+            }
+
+            //Did we make it past the tests? If so it is a valid move
+            if(valid){
+                validMoves.push(move);
+            }
+            //
+
+
+
+        }
+
+        return validMoves;
     }
 
 }
