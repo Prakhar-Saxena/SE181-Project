@@ -19,7 +19,7 @@ class Game{
     }
 
 }
-
+//testing
 //One global game as bubblegum
 var g_game = new Game();
 
@@ -42,7 +42,7 @@ function buildTable(){
     if(cont == null){
         throw "Error: No board container found";
     }
-    
+
     var alternator = false;
 
     for(var row = 0; row < 8; row++){
