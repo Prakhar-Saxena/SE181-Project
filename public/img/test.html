@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Page Title</title>
+</head>
+
+<style type="text/css">
+	img
+	{
+		width: 100%;
+    height: 100%;
+	}
+	.board
+    {
+    	height: 500px;
+      width: 500px;
+    }
+    .Row
+    {
+        display: flex;
+        height: 12.5%;
+    }
+    .Cell
+    {
+        flex: 1;
+        border: solid;
+        border-width: thin;
+        width: 12.5%;
+        height: 100%
+
+    }
+</style>
+
+<body>
+
+<h1>This is a Heading</h1>
+<p>This is a paragraph.</p>
+<div class="board">
+
+<div class="Row"><div class="Cell"style=background-color:black ><img src="w_Rook.png" alt=Rook></div><div class="Cell"style=background-color:#800000 ><img src="w_Knight.png" alt=Knight></div><div class="Cell"style=background-color:black ><img src="w_Bishop.png" alt=Bishop></div><div class="Cell"style=background-color:#800000 ><img src="w_Queen.png" alt=Queen></div><div class="Cell"style=background-color:black ><img src="w_King.png" alt=King></div><div class="Cell"style=background-color:#800000 ><img src="w_Bishop.png" alt=Bishop></div><div class="Cell 11"style=background-color:black ><img src="w_Knight.png" alt=Knight></div><div class="Cell"style=background-color:#800000 ><img src="w_Rook.png" alt=Rook></div></div><div class="Row"><div class="Cell"style=background-color:#800000 ><img src="w_Pawn.png" alt=Pawn></div><div class="Cell"style=background-color:black ><img src="w_Pawn.png" alt=Pawn></div><div class="Cell"style=background-color:#800000 ><img src="w_Pawn.png" alt=Pawn></div><div class="Cell"style=background-color:black ><img src="w_Pawn.png" alt=Pawn></div><div class="Cell"style=background-color:#800000 ><img src="w_Pawn.png" alt=Pawn></div><div class="Cell"style=background-color:black ><img src="w_Pawn.png" alt=Pawn></div><div class="Cell"style=background-color:#800000 ><img src="w_Pawn.png" alt=Pawn></div><div class="Cell"style=background-color:black ><img src="w_Pawn.png" alt=Pawn></div></div><div class="Row"><div class="Cell"style=background-color:black >&nbsp</div><div class="Cell"style=background-color:#800000 >&nbsp</div><div class="Cell"style=background-color:black >&nbsp</div><div class="Cell"style=background-color:#800000 >&nbsp</div><div class="Cell"style=background-color:black >&nbsp</div><div class="Cell"style=background-color:#800000 >&nbsp</div><div class="Cell"style=background-color:black >&nbsp</div><div class="Cell"style=background-color:#800000 >&nbsp</div></div><div class="Row"><div class="Cell"style=background-color:#800000 >&nbsp</div><div class="Cell 14" style=background-color:black >&nbsp</div><div class="Cell"style=background-color:#800000 >&nbsp</div><div class="Cell"style=background-color:black >&nbsp</div><div class="Cell"style=background-color:#800000 >&nbsp</div><div class="Cell"style=background-color:black >&nbsp</div><div class="Cell"style=background-color:#800000 >&nbsp</div><div class="Cell"style=background-color:black >&nbsp</div></div><div class="Row"><div class="Cell"style=background-color:black >&nbsp</div><div class="Cell"style=background-color:#800000 >&nbsp</div><div class="Cell"style=background-color:black >&nbsp</div><div class="Cell"style=background-color:#800000 >&nbsp</div><div class="Cell"style=background-color:black >&nbsp</div><div class="Cell"style=background-color:#800000 >&nbsp</div><div class="Cell"style=background-color:black >&nbsp</div><div class="Cell"style=background-color:#800000 >&nbsp</div></div><div class="Row"><div class="Cell"style=background-color:#800000 >&nbsp</div><div class="Cell"style=background-color:black >&nbsp</div><div class="Cell"style=background-color:#800000 >&nbsp</div><div class="Cell"style=background-color:black >&nbsp</div><div class="Cell"style=background-color:#800000 >&nbsp</div><div class="Cell"style=background-color:black >&nbsp</div><div class="Cell"style=background-color:#800000 >&nbsp</div><div class="Cell"style=background-color:black >&nbsp</div></div><div class="Row"><div class="Cell"style=background-color:black ><img src="w_Pawn.png" alt=Pawn></div><div class="Cell"style=background-color:#800000 ><img src="w_Pawn.png" alt=Pawn></div><div class="Cell"style=background-color:black ><img src="w_Pawn.png" alt=Pawn></div><div class="Cell"style=background-color:#800000 ><img src="w_Pawn.png" alt=Pawn></div><div class="Cell"style=background-color:black ><img src="w_Pawn.png" alt=Pawn></div><div class="Cell"style=background-color:#800000 ><img src="w_Pawn.png" alt=Pawn></div><div class="Cell"style=background-color:black ><img src="w_Pawn.png" alt=Pawn></div><div class="Cell"style=background-color:#800000 ><img src="w_Pawn.png" alt=Pawn></div></div><div class="Row"><div class="Cell"style=background-color:#800000 ><img src="b_Rook.png" alt=Rook></div><div class="Cell"style=background-color:black ><img src="b_Knight.png" alt=Knight></div><div class="Cell"style=background-color:#800000 ><img src="b_Bishop.png" alt=Bishop></div><div class="Cell"style=background-color:black ><img src="b_Queen.png" alt=Queen></div><div class="Cell 12" style=background-color:#800000 ><img src="b_King.png" alt=King></div><div class="Cell"style=background-color:black ><img src="b_Bishop.png" alt=Bishop></div><div class="Cell"style=background-color:#800000 ><img src="b_Knight.png" alt=Knight></div><div class="Cell"style=background-color:black ><img src="b_Rook.png" alt=Rook></div></div>
+</div>
+
+<input type="button" value="Click me to amimate" class="animationButton" />
+
+<div class="lost">
+</div>
+
+</body>
+</html>
+
+<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+<script type="text/javascript">
+	$(".animationButton").click(function(){
+		console.log('jaby')
+		if($(".11").find('> img').length){
+			$(".11>img").detach().appendTo('.lost');
+		}
+		$(".11").empty();
+		$('.12>img').detach().appendTo('.11');
+	})
+	
+</script>
