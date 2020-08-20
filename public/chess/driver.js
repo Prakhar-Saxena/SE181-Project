@@ -75,6 +75,13 @@ function buildTable(){
 
 }
 
+
+function updateBoard(){
+    //Make the data match the front end representation
+    //IE update pieces to their correct location
+    //Note if the initial configuration is changed, this should catch it.
+}
+
 //Forced by JS to do this after board creation
 function addListeners(){
     console.log("Adding Listeners");
