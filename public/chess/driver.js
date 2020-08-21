@@ -33,6 +33,7 @@ function doSomethingOnClick(id){
     //STILL NEED TO ADD ABILITY TO TELL WHEN IT"S THE PLAYERS TURN.
     //HARD CODING 1 for now, so when testing in nodemon, it's always your turn
     if(1){
+    //incorporate the if one square already clicked, no other ones can unless we unclick the first
     if(g_game.thisBoard.getPiece(row, col) != null){
       console.log(row + " : " + col);
       if(square.style.borderColor == "white"){
@@ -54,14 +55,14 @@ function doSomethingOnClick(id){
       }else if(square.style.borderColor == "green"){
         runMove(square);
         console.log("make move");
-      }else{
+      }else if (!hasOrigin()){
         square.style.borderColor = "white";
         square.style.borderWidth = "medium";
         let piece = g_game.thisBoard.getPiece(row, col);
         let moves = g_game.thisBoard.getPiece(row, col).calcMove();
-        moves = g_game.thisBoard.validateMoves(piece, moves);
         //SUBSTITUTING MOVES WITH HARD CODED OPTIONS FOR PAWN position 6 1 based off board
         //tmp test since validatemoves is not implemented yet
+        //moves = g_game.thisBoard.validateMoves(piece, moves);
         moves = [  [ 5, 1 ] , [ 4, 1 ] ];
         if(moves != null){
           for(var i = 0; i < moves.length; i++){
@@ -81,7 +82,18 @@ function doSomethingOnClick(id){
     console.log("not players turn")
   }
 
+}
 
+function hasOrigin(){
+  for (var i = 0; i < 8; i++){
+    for (var j = 0; j < 8; j++){
+      let square = document.getElementById("" + i + j);
+      if(square.style.borderColor == "white"){
+        return true;
+      }
+    }
+  }
+  return false;
 }
 
 function runMove(target){
