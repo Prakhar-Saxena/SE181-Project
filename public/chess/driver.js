@@ -5,12 +5,12 @@ class Game{
 
     constructor(){
         this.thisBoard = new Board();
-        this.currentPlayer = 0;
+        this.currentPlayer = 1;
         console.log(this.thisBoard.board);
     }
 
     start(){
-        this.currentPlayer = 0;
+        this.currentPlayer = 1;
     }
 
     endTurn(){
@@ -47,7 +47,6 @@ function doSomethingOnClick(id){
         //TODO
         //SUBSTITUTING MOVES WITH HARD CODED OPTIONS FOR PAWN position 6 1 based off board
         //tmp test since validatemoves is not implemented yet
-        moves = [  [ 5, 1 ] , [ 4, 1 ] ];
         if(moves != null){
           for(var i = 0; i < moves.length; i++){
               let move = document.getElementById("" + moves[i][0] + moves[i][1]);
@@ -66,7 +65,6 @@ function doSomethingOnClick(id){
         //SUBSTITUTING MOVES WITH HARD CODED OPTIONS FOR PAWN position 6 1 based off board
         //tmp test since validatemoves is not implemented yet
         //moves = g_game.thisBoard.validateMoves(piece, moves);
-        moves = [  [ 5, 1 ] , [ 4, 1 ] ];
         if(moves != null){
           for(var i = 0; i < moves.length; i++){
               let move = document.getElementById("" + moves[i][0] + moves[i][1]);
