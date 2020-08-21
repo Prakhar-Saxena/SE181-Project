@@ -5,6 +5,7 @@ class Game{
 
     constructor(){
         this.thisBoard = new Board();
+        this.currentPlayer = 0;
         console.log(this.thisBoard.board);
     }
 
@@ -26,15 +27,16 @@ var g_game = new Game();
 
 function doSomethingOnClick(id){
     //add code to check if it's the players turn (differentiate btwn clients)
-    //console.log(g_game.currentPlayer);
     let row = id[0];
     let col = id[1];
     let square = document.getElementById(id);
+    //TODO
     //STILL NEED TO ADD ABILITY TO TELL WHEN IT"S THE PLAYERS TURN.
     //HARD CODING 1 for now, so when testing in nodemon, it's always your turn
     if(1){
-    //incorporate the if one square already clicked, no other ones can unless we unclick the first
-    if(g_game.thisBoard.getPiece(row, col) != null){
+    //TODO
+    //change the g_game.currentPlayer in if condition to the client's team. Ensures player can't pick opponent's pieces.
+    if(g_game.thisBoard.getPiece(row, col) != null && g_game.thisBoard.getPiece(row, col).team == g_game.currentPlayer){
       console.log(row + " : " + col);
       if(square.style.borderColor == "white"){
         square.style.borderColor = null;
@@ -42,6 +44,7 @@ function doSomethingOnClick(id){
         let piece = g_game.thisBoard.getPiece(row, col);
         let moves = g_game.thisBoard.getPiece(row, col).calcMove();
         moves = g_game.thisBoard.validateMoves(piece, moves);
+        //TODO
         //SUBSTITUTING MOVES WITH HARD CODED OPTIONS FOR PAWN position 6 1 based off board
         //tmp test since validatemoves is not implemented yet
         moves = [  [ 5, 1 ] , [ 4, 1 ] ];
@@ -54,12 +57,12 @@ function doSomethingOnClick(id){
         }
       }else if(square.style.borderColor == "green"){
         runMove(square);
-        console.log("make move");
       }else if (!hasOrigin()){
         square.style.borderColor = "white";
         square.style.borderWidth = "medium";
         let piece = g_game.thisBoard.getPiece(row, col);
         let moves = g_game.thisBoard.getPiece(row, col).calcMove();
+        //TODO
         //SUBSTITUTING MOVES WITH HARD CODED OPTIONS FOR PAWN position 6 1 based off board
         //tmp test since validatemoves is not implemented yet
         //moves = g_game.thisBoard.validateMoves(piece, moves);
