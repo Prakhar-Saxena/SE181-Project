@@ -204,6 +204,7 @@ function addListeners(){
     }
 }
 
+
 function buildTable(){
   //team 0 is white, team 1 is black
   console.log("Building Board");
@@ -256,3 +257,12 @@ window.onload = function(){
     addListeners();
     //document.getElementById("60").innerHTML += '<img src="/chess/images/pawn.png">';
 }
+
+
+var game = new Game();
+var piece = game.thisBoard.getPiece(1,4);
+//Proves out move logic for right 
+var moves = [ [0,5] , [0,3] , [2,3] , [2,5]];
+var validMoves = game.thisBoard.validateMoves(piece, moves);
+console.log("Valid Moves : " + validMoves);
+
