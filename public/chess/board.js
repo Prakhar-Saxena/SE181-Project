@@ -18,8 +18,7 @@ export default class Board{
                     break;
 
                 case 1:
-                    toReturn[i] = [new pieces.Pawn(1,0,0), null, null, null, new pieces.Pawn(1,4,0), null, null, null];
-                    //pawnRow(toReturn[i], i, 0);
+                    pawnRow(toReturn[i], i, 0);
                     break;
 
                 case 6:
@@ -49,7 +48,7 @@ export default class Board{
             return;
         }
 
-        var pieceHold = this.board.getPiece(pieceRow, pieceCol);
+        var pieceHold = this.getPiece(pieceRow, pieceCol); //this.board.getPiece(pieceRow, pieceCol);
         this.board[pieceRow][pieceCol] = null;
         this.board[newRow][newCol] = pieceHold;
 
@@ -137,8 +136,9 @@ function newRow(row, rowCount, team){
 
 function pawnRow(row, rowCount, team){
     for(var j = 0; j < 8; j++){
-        var piece = new pieces.Pawn(rowCount,j, 0); 
-        row.push(piece); 
+        //fix hard code line here so that pawns are not all white team.
+        var piece = new pieces.Pawn(rowCount,j, team);
+        row.push(piece);
     }
 }
 
