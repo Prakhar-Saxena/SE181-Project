@@ -4,14 +4,13 @@
 *
 */
 
-
-class Piece{
-    constructor(initX, initY, team){
-        this.id = initX.toString() + initY + team;
-        this.locationMap = [(initX,initY)];
+export class Piece{
+    constructor(initRow, initCol, team){
+        this.id =  team.toString() + initRow + initCol;
+        this.locationMap = [ [initRow,initCol] ];
         this.team = team;
-        this.currentX = initX;
-        this.currentY = initY;
+        this.currentRow = initRow;
+        this.currentCol = initCol;
     }
 
     calcMove(){
@@ -21,11 +20,12 @@ class Piece{
     getPieceType(){
         return "None";
     }
+
 }
 
 export class Pawn extends Piece{
-    constructor(initX, initY, team){
-        super(initX, initY, team);
+    constructor(initRow, initCol, team){
+        super(initRow, initCol, team);
     }
 
     calcMove(){
@@ -34,19 +34,19 @@ export class Pawn extends Piece{
 
         //Return array of tuples with possible coordinates
         if(this.team == 1){
-            possibleMoves.push( [this.currentX - 1, this.currentY] );
+            possibleMoves.push( [this.currentRow - 1, this.currentCol] );
         }
         else{
-            possibleMoves.push( [this.currentX + 1, this.currentY] );
+            possibleMoves.push( [this.currentRow + 1, this.currentCol] );
         }
 
         //is First move and can slide two spaces
         if(this.locationMap.length == 1){
             if(this.team == 1){
-                possibleMoves.push( [this.currentX - 2, this.currentY] );
+                possibleMoves.push( [this.currentRow - 2, this.currentCol] );
             }
             else{
-                possibleMoves.push( [this.currentX + 2, this.currentY] );
+                possibleMoves.push( [this.currentRow + 2, this.currentCol] );
             }
         }
 
@@ -60,8 +60,8 @@ export class Pawn extends Piece{
 }
 
 export class Bishop extends Piece{
-    constructor(initX, initY, team){
-        super(initX, initY, team);
+    constructor(initRow, initCol, team){
+        super(initRow, initCol, team);
     }
 
     calcMove(){
@@ -75,8 +75,8 @@ export class Bishop extends Piece{
 }
 
 export class Rook extends Piece{
-    constructor(initX, initY, team){
-        super(initX, initY, team);
+    constructor(initRow, initCol, team){
+        super(initRow, initCol, team);
     }
 
     calcMove(){
@@ -86,8 +86,8 @@ export class Rook extends Piece{
 }
 
 export class Queen extends Piece{
-    constructor(initX, initY, team){
-        super(initX, initY, team);
+    constructor(initRow, initCol, team){
+        super(initRow, initCol, team);
     }
 
     calcMove(){
@@ -97,8 +97,8 @@ export class Queen extends Piece{
 }
 
 export class King extends Piece{
-    constructor(initX, initY, team){
-        super(initX, initY, team);
+    constructor(initRow, initCol, team){
+        super(initRow, initCol, team);
     }
 
     calcMove(){
@@ -108,8 +108,8 @@ export class King extends Piece{
 }
 
 export class Knight extends Piece{
-    constructor(initX, initY, team){
-        super(initX, initY, team);
+    constructor(initRow, initCol, team){
+        super(initRow, initCol, team);
     }
 
     calcMove(){
