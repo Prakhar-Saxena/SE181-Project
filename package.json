@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "nodemon": "nodemon ./bin/www"
+    "nodemon": "nodemon ./bin/www",
+    "test": "nyc mocha --require @babel/register ./tests"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
@@ -14,6 +15,14 @@
     "jade": "~1.11.0",
     "morgan": "~1.9.1",
     "socket.io": "^2.3.0",
+    "util.promisify": "^1.0.1",
     "uuidv4": "^6.2.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.11.4",
+    "@babel/preset-env": "^7.11.0",
+    "@babel/register": "^7.10.5",
+    "mocha": "^8.1.1",
+    "nyc": "^15.1.0"
   }
 }

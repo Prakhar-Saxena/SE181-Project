@@ -1,8 +1,10 @@
 import * as pieces from './piece.js';
 
+//const pieces = require('./piece.js');
+
 //Board has 8x8 matrix, JS is untyped can't force them to be pieces
 
-export default class Board{
+export class Board{
     constructor(){
         this.board = this.initializeBoard();
     }
@@ -118,7 +120,7 @@ export default class Board{
 
 }
 
-function newRow(row, rowCount, team){
+export function newRow(row, rowCount, team){
     row.push(new pieces.Rook(rowCount,0,team));
     row.push(new pieces.Knight(rowCount,1,team));
     row.push(new pieces.Bishop(rowCount,2,team));
@@ -129,7 +131,7 @@ function newRow(row, rowCount, team){
     row.push(new pieces.Rook(rowCount,7,team));
 }
 
-function pawnRow(row, rowCount, team){
+export function pawnRow(row, rowCount, team){
     for(var j = 0; j < 8; j++){
         //fix hard code line here so that pawns are not all white team.
         var piece = new pieces.Pawn(rowCount,j, team);
@@ -141,7 +143,7 @@ function pawnRow(row, rowCount, team){
 //Obstruction tests
 
 //I hate this function
-function diagonalCheck(board, piece, move){
+export function diagonalCheck(board, piece, move){
     var iterCount = Math.abs(piece.currentRow - move[0]);
     var iterator;
 
@@ -225,7 +227,7 @@ function diagonalCheck(board, piece, move){
 
 }
 
-function horizontalCheck(board, piece, move){
+export function horizontalCheck(board, piece, move){
     var colIter;
 
     //Is the move to the right?
@@ -264,7 +266,7 @@ function horizontalCheck(board, piece, move){
     return true;
 }
 
-function verticalCheck(board, piece, move){
+export function verticalCheck(board, piece, move){
     var rowIter;
 
     // Vertical is top down from 0 - 7
@@ -304,3 +306,10 @@ function verticalCheck(board, piece, move){
     //Move checks out
     return true;
 }
+
+/*exports.Board = Board;
+exports.newRow = newRow;
+exports.pawnRow = pawnRow;
+exports.diagonalCheck = diagonalCheck;
+exports.horizontalCheck = horizontalCheck;
+exports.verticalCheck = verticalCheck;*/
