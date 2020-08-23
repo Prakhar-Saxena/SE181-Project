@@ -112,6 +112,15 @@ export class Board{
     validateMoves(piece, moves){
         var validMoves = [];
 
+        if (piece.getPieceType() == "Knight"){
+            for (var i = 0; i < moves.length; i++) {
+                if (this.getPiece(moves[i][0], moves[i][1]) == null || this.getPiece(moves[i][0], moves[i][1]).team != piece.team){
+                    validMoves.append(moves[i]);
+                }
+            }
+            return validMoves;
+        }
+
         for(var i = 0; i < moves.length; i++){
 
             //Get each move from the list

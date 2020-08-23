@@ -93,8 +93,11 @@ export class Rook extends Piece{
         //Return array of tuples with possible coordinates
         var possibleMoves = [];
         for (var i = 0; i < 8; i ++){
-            possibleMoves.push( [i, this.currentCol] );
-            possibleMoves.push( [this.currentRow, i] );
+            if(i != this.currentRow)
+                possibleMoves.push( [i, this.currentCol] );
+            
+            if(i != this.currentCol)
+                possibleMoves.push( [this.currentRow, i] );
         }
         return possibleMoves;
     }
@@ -158,6 +161,10 @@ export class Knight extends Piece{
         possibleMoves.push( [this.currentRow - 2, this.currentCol - 1] );
         possibleMoves.push( [this.currentRow - 2, this.currentCol + 1] );
         return possibleMoves;
+    }
+
+    getPieceType(){
+        return "Knight";
     }
 }
 
