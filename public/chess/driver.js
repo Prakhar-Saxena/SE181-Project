@@ -47,6 +47,11 @@ function doSomethingOnClick(id){
         moves = g_game.thisBoard.validateMoves(piece, moves);
         if(piece.getPieceType() == "Pawn"){
           if(piece.team == 1){
+            for (var i = 0; i < moves.length; i++) {
+                if (moves[i][0] == (row - 1) && moves[i][1] == col && g_game.thisBoard.getPiece(row - 1, col) != null){
+                    moves.splice(i,1);
+                }
+            }
               if(g_game.thisBoard.isOnBoard(row - 1, col - 1) && g_game.thisBoard.getPiece(row - 1, col - 1) != null && g_game.thisBoard.getPiece(row - 1, col - 1).team != piece.team){
                 moves.push([row - 1, col - 1]);
               }
@@ -55,6 +60,11 @@ function doSomethingOnClick(id){
               }
           }
           else{
+            for (var i = 0; i < moves.length; i++) {
+                if (moves[i][0] == (row + 1) && moves[i][1] == col && g_game.thisBoard.getPiece(row + 1, col) != null){
+                    moves.splice(i,1);
+                }
+            }
             if(g_game.thisBoard.isOnBoard(row + 1, col - 1) && g_game.thisBoard.getPiece(row + 1, col - 1) != null && g_game.thisBoard.getPiece(row + 1, col - 1).team != piece.team){
               moves.push([row + 1, col - 1]);
             }
@@ -77,6 +87,7 @@ function doSomethingOnClick(id){
         }
       }else if(square.style.borderColor == "green"){
         runMove(square);
+        checkGameStatus();
       }else if (!hasOrigin()){
         console.log("testing")
         square.style.borderColor = "white";
@@ -87,6 +98,11 @@ function doSomethingOnClick(id){
         moves = g_game.thisBoard.validateMoves(piece, moves);
         if(piece.getPieceType() == "Pawn"){
           if(piece.team == 1){
+            for (var i = 0; i < moves.length; i++) {
+                if (moves[i][0] == (row - 1) && moves[i][1] == col && g_game.thisBoard.getPiece(row - 1, col) != null){
+                    moves.splice(i,1);
+                }
+            }
               if(g_game.thisBoard.isOnBoard(row - 1, col - 1) && g_game.thisBoard.getPiece(row - 1, col - 1) != null && g_game.thisBoard.getPiece(row - 1, col - 1).team != piece.team){
                 moves.push([row - 1, col - 1]);
               }
@@ -95,6 +111,11 @@ function doSomethingOnClick(id){
               }
           }
           else{
+            for (var i = 0; i < moves.length; i++) {
+                if (moves[i][0] == (row + 1) && moves[i][1] == col && g_game.thisBoard.getPiece(row + 1, col) != null){
+                    moves.splice(i,1);
+                }
+            }
             if(g_game.thisBoard.isOnBoard(row + 1, col - 1) && g_game.thisBoard.getPiece(row + 1, col - 1) != null && g_game.thisBoard.getPiece(row + 1, col - 1).team != piece.team){
               moves.push([row + 1, col - 1]);
             }
@@ -120,6 +141,7 @@ function doSomethingOnClick(id){
       }
     }else if(square.style.borderColor == "green"){
       runMove(square);
+      checkGameStatus();
     }else if(g_game.thisBoard.getPiece(row, col) == null){
       console.log("no piece on the square");
     }
@@ -139,6 +161,24 @@ function hasOrigin(){
     }
   }
   return false;
+}
+
+function checkGameStatus(){
+  for (var i = 0; i < 8; i++){
+    for (var j = 0; j < 8; j++){
+      let piece = g_game.thisBoard.getPiece(i, j);
+      if(piece != null && piece.getPieceType() == "King"){
+        g_game.thisBoard.inCheckMate(piece);
+        if(g_game.thisBoard.checkMateStatus){
+          console.log("Game Over")
+          alert('checkmate');
+        }else if(g_game.thisBoard.inCheck(piece, [i,j])){
+          alert('check');
+        }
+        break;
+      }
+    }
+  }
 }
 
 function runMove(target){
