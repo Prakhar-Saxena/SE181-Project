@@ -194,10 +194,10 @@ export function pawnRow(row, rowCount, team){
 
 
 //Obstruction tests
-
 export function diagonalCheck(board, piece, move){
     var iterCount = Math.abs(piece.currentRow - move[0]);
     var iterator;
+    var collisionCount = 0;
 
     //Down?
     if(move[0] > piece.currentRow){
@@ -211,8 +211,11 @@ export function diagonalCheck(board, piece, move){
                 if(board.getPiece(piece.currentRow + iterator, piece.currentCol + iterator) != null){
                     var otherPiece = board.getPiece(piece.currentRow + iterator, piece.currentCol + iterator);
                     //Are they the same team, therefore blocked?
-                    if(otherPiece.team == piece.team){
+                    if(otherPiece.team == piece.team || collisionCount > 0){
                         return false;
+                    }
+                    else{
+                        collisionCount += 1;
                     }
                 }
             }
@@ -227,8 +230,11 @@ export function diagonalCheck(board, piece, move){
                 if(board.getPiece(piece.currentRow + iterator, piece.currentCol - iterator) != null){
                     var otherPiece = board.getPiece(piece.currentRow + iterator, piece.currentCol - iterator);
                     //Are they the same team, therefore blocked?
-                    if(otherPiece.team == piece.team){
+                    if(otherPiece.team == piece.team || collisionCount > 0){
                         return false;
+                    }
+                    else{
+                        collisionCount += 1;
                     }
                 }
             }
@@ -248,8 +254,11 @@ export function diagonalCheck(board, piece, move){
                 if(board.getPiece(piece.currentRow - iterator, piece.currentCol + iterator) != null){
                     var otherPiece = board.getPiece(piece.currentRow - iterator, piece.currentCol + iterator);
                     //Are they the same team, therefore blocked?
-                    if(otherPiece.team == piece.team){
+                    if(otherPiece.team == piece.team || collisionCount > 0){
                         return false;
+                    }
+                    else{
+                        collisionCount += 1;
                     }
                 }
             }
@@ -264,8 +273,11 @@ export function diagonalCheck(board, piece, move){
                 if(board.getPiece(piece.currentRow - iterator, piece.currentCol - iterator) != null){
                     var otherPiece = board.getPiece(piece.currentRow - iterator, piece.currentCol - iterator);
                     //Are they the same team, therefore blocked?
-                    if(otherPiece.team == piece.team){
+                    if(otherPiece.team == piece.team || collisionCount > 0){
                         return false;
+                    }
+                    else{
+                        collisionCount += 1;
                     }
                 }
             }
@@ -281,6 +293,7 @@ export function diagonalCheck(board, piece, move){
 
 export function horizontalCheck(board, piece, move){
     var colIter;
+    var collisionCount = 0;
 
     //Is the move to the right?
     if(move[1] > piece.currentCol){
@@ -291,8 +304,11 @@ export function horizontalCheck(board, piece, move){
             if(board.getPiece(piece.currentRow, colIter) != null){
                 var otherPiece = board.getPiece(piece.currentRow, colIter);
                 //Are they the same team, therefore blocked?
-                if(otherPiece.team == piece.team){
+                if(otherPiece.team == piece.team || collisionCount > 0){
                     return false;
+                }
+                else{
+                    collisionCount += 1;
                 }
             }
         }
@@ -307,8 +323,11 @@ export function horizontalCheck(board, piece, move){
             if(board.getPiece(piece.currentRow, colIter) != null){
                 var otherPiece = board.getPiece(piece.currentRow, colIter);
                 //Are they the same team, therefore blocked?
-                if(otherPiece.team == piece.team){
+                if(otherPiece.team == piece.team || collisionCount > 0){
                     return false;
+                }
+                else{
+                    collisionCount += 1;
                 }
             }
         }
@@ -320,6 +339,7 @@ export function horizontalCheck(board, piece, move){
 
 export function verticalCheck(board, piece, move){
     var rowIter;
+    var collisionCount = 0;
 
     // Vertical is top down from 0 - 7
 
@@ -332,8 +352,11 @@ export function verticalCheck(board, piece, move){
             if(board.getPiece(rowIter, piece.currentCol) != null){
                 var otherPiece = board.getPiece(rowIter, piece.currentCol);
                 //Are they the same team, therefore blocked?
-                if(otherPiece.team == piece.team){
+                if(otherPiece.team == piece.team || collisionCount > 0){
                     return false;
+                }
+                else{
+                    collisionCount += 1;
                 }
             }
         }
@@ -348,8 +371,11 @@ export function verticalCheck(board, piece, move){
             if(board.getPiece(rowIter, piece.currentCol) != null){
                 var otherPiece = board.getPiece(rowIter, piece.currentCol);
                 //Are they the same team, therefore blocked?
-                if(otherPiece.team == piece.team){
+                if(otherPiece.team == piece.team || collisionCount > 0){
                     return false;
+                }
+                else{
+                    collisionCount += 1;
                 }
             }
         }
