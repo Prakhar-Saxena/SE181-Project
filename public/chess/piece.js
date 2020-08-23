@@ -1,3 +1,4 @@
+// @flow
 
 /* Implement helper functions for move calculation
 * Sample: calcForwardMovement(distance) <- usable by Queen Pawn King Rook
