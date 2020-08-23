@@ -7,7 +7,7 @@
 export class Piece{
     constructor(initRow, initCol, team){
         this.id =  team.toString() + initRow + initCol;
-        this.locationMap = [(initRow,initCol)];
+        this.locationMap = [ [initRow,initCol] ];
         this.team = team;
         this.currentRow = initRow;
         this.currentCol = initCol;
@@ -118,3 +118,10 @@ export class Knight extends Piece{
     }
 }
 
+/*exports.Piece = Piece;
+exports.Pawn = Pawn;
+exports.Bishop = Bishop;
+exports.Rook = Rook;
+exports.King = King;
+exports.Queen = Queen;
+exports.Knight = Knight;*/

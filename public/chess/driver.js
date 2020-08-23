@@ -1,16 +1,16 @@
-import Board from './board.js';
+import { Board } from './board.js';
 import * as pieces from './piece.js';
 
 class Game{
 
     constructor(){
         this.thisBoard = new Board();
-        this.currentPlayer = 0;
+        this.currentPlayer = 1;
         console.log(this.thisBoard.board);
     }
 
     start(){
-        this.currentPlayer = 0;
+        this.currentPlayer = 1;
     }
 
     endTurn(){
@@ -47,7 +47,6 @@ function doSomethingOnClick(id){
         //TODO
         //SUBSTITUTING MOVES WITH HARD CODED OPTIONS FOR PAWN position 6 1 based off board
         //tmp test since validatemoves is not implemented yet
-        moves = [  [ 5, 1 ] , [ 4, 1 ] ];
         if(moves != null){
           for(var i = 0; i < moves.length; i++){
               let move = document.getElementById("" + moves[i][0] + moves[i][1]);
@@ -66,7 +65,6 @@ function doSomethingOnClick(id){
         //SUBSTITUTING MOVES WITH HARD CODED OPTIONS FOR PAWN position 6 1 based off board
         //tmp test since validatemoves is not implemented yet
         //moves = g_game.thisBoard.validateMoves(piece, moves);
-        moves = [  [ 5, 1 ] , [ 4, 1 ] ];
         if(moves != null){
           for(var i = 0; i < moves.length; i++){
               let move = document.getElementById("" + moves[i][0] + moves[i][1]);
@@ -209,6 +207,7 @@ function addListeners(){
     }
 }
 
+
 function buildTable(){
   //team 0 is white, team 1 is black
   console.log("Building Board");
@@ -261,3 +260,12 @@ window.onload = function(){
     addListeners();
     //document.getElementById("60").innerHTML += '<img src="/chess/images/pawn.png">';
 }
+
+
+var game = new Game();
+var piece = game.thisBoard.getPiece(1,4);
+//Proves out move logic for right 
+var moves = [ [0,5] , [0,3] , [2,3] , [2,5]];
+var validMoves = game.thisBoard.validateMoves(piece, moves);
+console.log("Valid Moves : " + validMoves);
+
