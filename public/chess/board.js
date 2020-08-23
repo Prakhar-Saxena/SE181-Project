@@ -7,6 +7,8 @@ import * as pieces from './piece.js';
 export class Board{
     constructor(){
         this.board = this.initializeBoard();
+        this.activePieces = []; //List tracks pieces that are currently active on board
+        this.checkMateStatus = false;
     }
 
     initializeBoard(){
@@ -62,9 +64,46 @@ export class Board{
         return true;
     }
 
-    isCheckMate(){
-        //return a boolean if the current board state is a checkmate condition, maybe return not a boolean maybe the team that is victorious and -1 for no win
-        //idk, figure it out
+
+
+    inCheck(piece, kingPos){
+     
+        //Calc all available moves for piece
+        var pieceMoves = piece.calcMove();
+
+        //If a move intersects King position then check
+        for(i = 0; i < pieceMoves.length; i++){
+            if(kingPos == pieceMoves[i]){
+                return true;
+            }
+        }
+
+    }
+
+    inCheckMate(king){
+     
+        var kingMoves = king.calcMove(); //calc King's possible moves
+        numMoves = kingMoves.length;
+        checkMoves = 0; //Number of moves that result in check
+
+        //loop through active pieces, if it's on the opposite team and its moves intersect with king's possible moves, register as check
+        for(i = 0; i < this.activePieces.length; i++){ 
+            if(this.activePieces[i].team != king.team){
+                for(j = 0; j < kingMoves.length; j++){
+                    var checkBool = this.inCheck(this.activePieces[i], kingMoves[j])
+                    if(checkBool == true){
+                        checkMoves++;
+                        kingMoves.splice(j,1); //if registered as check, remove from list in order to prevent duplicates
+                    }
+                }
+            }
+        }
+
+        //If all available moves result in check then checkmate
+        if(checkMoves == numMoves){ 
+            this.checkMateStatus = true;
+        }
+
     }
 
     validateMoves(piece, moves){
@@ -313,3 +352,8 @@ exports.pawnRow = pawnRow;
 exports.diagonalCheck = diagonalCheck;
 exports.horizontalCheck = horizontalCheck;
 exports.verticalCheck = verticalCheck;*/
+
+//I'm thinking we don't need tests for each individual, just check available coordinates and check move validity
+function obstructionCheck(row, col, targetRow, targetCol){
+ 
+}
