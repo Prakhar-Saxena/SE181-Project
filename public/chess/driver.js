@@ -1,3 +1,5 @@
+// @flow
+
 import { Board } from './board.js';
 import * as pieces from './piece.js';
 

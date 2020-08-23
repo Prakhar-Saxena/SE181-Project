@@ -1,3 +1,6 @@
+// @flow
+
+
 import * as pieces from './piece.js';
 
 //const pieces = require('./piece.js');
