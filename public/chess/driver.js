@@ -119,6 +119,11 @@ function runMove(target){
   let piece = g_game.thisBoard.getPiece(origin[0], origin[1]);
   g_game.thisBoard.movePiece(origin[0], origin[1], parseInt(newSquare[0]), parseInt(newSquare[1]))
   updateBoard();
+  if(g_game.currentPlayer){
+    g_game.currentPlayer = 0;
+  }else{
+    g_game.currentPlayer = 1;
+  }
 }
 
 /*
