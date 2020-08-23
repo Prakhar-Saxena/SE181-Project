@@ -1,34 +1,9 @@
 extends layout
-block includes
-  include ./socket.jade
 
 block content
-  include ./socket.jade
   link(rel="stylesheet" href="/css/main.css")
   h1= Chess
   p(style='white-space:pre;' id="boardContainer")
   div(class="board" id="board")
   script(type="module", src='/chess/driver.js').
   p Welcome to #{title}
-  div(class="container-fluid")
-        div(class="row window info")
-            // Info data
-            h3(id="headline" style='text-align:center; width:100%;') Messages
-            
-        div(class="row window moves-history")
-            ul(id='messages' class='messages-window' data-spy='scroll')
-                    
-        div(class="row window chat-box-container")
-            form(id="chatBox" method="" )
-                input(id="chat" class="chat-box" type="text")
-                span
-                    button(class="btn btn-primary" type='submit') Send
-
-        div(class="jumbotron jumbotron-fluid " style="text-align:center; margin-top:20px;padding-top:10px;padding-bottom:10px")
-            div(class="container")
-                p(class='engineStatus') Engine Status
-      
-        //test the log, the scroller is not implemented
-        div(class="row")
-            div
-                p(class="logger") Logger :
