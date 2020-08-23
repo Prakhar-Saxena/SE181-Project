@@ -15,7 +15,7 @@ export class Piece{
     }
 
     calcMove(){
-        
+
     }
 
     getPieceType(){
@@ -111,6 +111,9 @@ export class Rook extends Piece{
         }
         return this.filterMoves(possibleMoves);
     }
+    getPieceType(){
+        return "Rook";
+    }
 }
 
 export class Queen extends Piece{
@@ -129,6 +132,9 @@ export class Queen extends Piece{
         tempRook = null;
         let possibleMoves = possibleMovesBishop.concat(possibleMovesRook);
         return this.filterMoves((possibleMoves.filter((item, i, ar) => ar.indexOf(item) === i)));
+    }
+    getPieceType(){
+        return "Queen";
     }
 }
 
@@ -150,6 +156,9 @@ export class King extends Piece{
         possibleMoves.push( [this.currentRow - 1  , this.currentCol     ] );
         possibleMoves.push( [this.currentRow - 1  , this.currentCol + 1 ] );
         return this.filterMoves(possibleMoves);
+    }
+    getPieceType(){
+        return "King";
     }
 }
 

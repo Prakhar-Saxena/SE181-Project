@@ -70,32 +70,32 @@ export class Board{
 
 
     inCheck(piece, kingPos){
-     
+
         //Calc all available moves for piece
         var pieceMoves = piece.calcMove();
         var validPieceMoves = this.validateMoves(piece, pieceMoves)
 
         //If a move intersects King position then check
-        for(i = 0; i < validPieceMoves.length; i++){
+        for(var i = 0; i < validPieceMoves.length; i++){
             if(kingPos == validPieceMoves[i]){
                 return true;
             }
         }
-        
+
         return false;
     }
 
     inCheckMate(king){
-     
+
         var kingMoves = king.calcMove(); //calc King's possible moves
         var validKingMoves = this.validateMoves(king, kingMoves);
-        numMoves = validKingMoves.length;
-        checkMoves = 0; //Number of moves that result in check
+        var numMoves = validKingMoves.length;
+        var checkMoves = 0; //Number of moves that result in check
 
         //loop through active pieces, if it's on the opposite team and its moves intersect with king's possible moves, register as check
-        for(i = 0; i < this.activePieces.length; i++){ 
+        for(var i = 0; i < this.activePieces.length; i++){
             if(this.activePieces[i].team != king.team){
-                for(j = 0; j < validKingMoves.length; j++){
+                for(var j = 0; j < validKingMoves.length; j++){
                     var checkBool = this.inCheck(this.activePieces[i], validKingMoves[j])
                     if(checkBool == true){
                         checkMoves++;
@@ -104,9 +104,8 @@ export class Board{
                 }
             }
         }
-
         //If all available moves result in check then checkmate
-        if(checkMoves == numMoves){ 
+        if(checkMoves == numMoves){
             this.checkMateStatus = true;
         }
 
@@ -139,7 +138,7 @@ export class Board{
                 if(!horizontalCheck(this, piece, move)){
                     valid = false;
                 }
-                
+
             }
             //Same Column?
             else if(move[1] == piece.currentCol){
@@ -369,5 +368,5 @@ exports.verticalCheck = verticalCheck;*/
 
 //I'm thinking we don't need tests for each individual, just check available coordinates and check move validity
 function obstructionCheck(row, col, targetRow, targetCol){
- 
+
 }
