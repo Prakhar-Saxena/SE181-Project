@@ -207,11 +207,15 @@ export function diagonalCheck(board, piece, move){
             //Down and Right
             //Start from one for offset when checking
             for(iterator = 1; iterator <= iterCount; iterator++){
+                //If we are still iterating, make sure no collisions have already occured with the enemy
+                if(collisionCount > 0){
+                    return false;
+                }
                 //Do we hit another piece?
                 if(board.getPiece(piece.currentRow + iterator, piece.currentCol + iterator) != null){
                     var otherPiece = board.getPiece(piece.currentRow + iterator, piece.currentCol + iterator);
                     //Are they the same team, therefore blocked?
-                    if(otherPiece.team == piece.team || collisionCount > 0){
+                    if(otherPiece.team == piece.team){
                         return false;
                     }
                     else{
@@ -226,11 +230,15 @@ export function diagonalCheck(board, piece, move){
             //Down and Left
             //Start from one for offset when checking
             for(iterator = 1; iterator <= iterCount; iterator++){
+                //If we are still iterating, make sure no collisions have already occured with the enemy
+                if(collisionCount > 0){
+                    return false;
+                }
                 //Do we hit another piece?
                 if(board.getPiece(piece.currentRow + iterator, piece.currentCol - iterator) != null){
                     var otherPiece = board.getPiece(piece.currentRow + iterator, piece.currentCol - iterator);
                     //Are they the same team, therefore blocked?
-                    if(otherPiece.team == piece.team || collisionCount > 0){
+                    if(otherPiece.team == piece.team){
                         return false;
                     }
                     else{
@@ -250,11 +258,16 @@ export function diagonalCheck(board, piece, move){
             //Up and Right
             //Start from one for offset when checking
             for(iterator = 1; iterator <= iterCount; iterator++){
+                //If we are still iterating, make sure no collisions have already occured with the enemy
+                if(collisionCount > 0){
+                    return false;
+                }
+
                 //Do we hit another piece?
                 if(board.getPiece(piece.currentRow - iterator, piece.currentCol + iterator) != null){
                     var otherPiece = board.getPiece(piece.currentRow - iterator, piece.currentCol + iterator);
                     //Are they the same team, therefore blocked?
-                    if(otherPiece.team == piece.team || collisionCount > 0){
+                    if(otherPiece.team == piece.team){
                         return false;
                     }
                     else{
@@ -265,15 +278,19 @@ export function diagonalCheck(board, piece, move){
 
         }
         else{
-
             //Up and Left
             //Start from one for offset when checking
             for(iterator = 1; iterator <= iterCount; iterator++){
+                //If we are still iterating, make sure no collisions have already occured with the enemy
+                if(collisionCount > 0){
+                    return false;
+                }
+
                 //Do we hit another piece?
                 if(board.getPiece(piece.currentRow - iterator, piece.currentCol - iterator) != null){
                     var otherPiece = board.getPiece(piece.currentRow - iterator, piece.currentCol - iterator);
                     //Are they the same team, therefore blocked?
-                    if(otherPiece.team == piece.team || collisionCount > 0){
+                    if(otherPiece.team == piece.team){
                         return false;
                     }
                     else{
@@ -300,11 +317,16 @@ export function horizontalCheck(board, piece, move){
 
         //Iterate to the right starting one move to the right
         for(colIter = (piece.currentCol + 1);  colIter <= move[1];  colIter++){
+            //If we are still iterating, make sure no collisions have already occured with the enemy
+            if(collisionCount > 0){
+                return false;
+            }
+
             //Do we hit another piece?
             if(board.getPiece(piece.currentRow, colIter) != null){
                 var otherPiece = board.getPiece(piece.currentRow, colIter);
                 //Are they the same team, therefore blocked?
-                if(otherPiece.team == piece.team || collisionCount > 0){
+                if(otherPiece.team == piece.team){
                     return false;
                 }
                 else{
@@ -319,11 +341,16 @@ export function horizontalCheck(board, piece, move){
 
         //Iterate to the left starting one move to the left
         for(colIter = (piece.currentCol - 1); colIter >= move[1]; colIter--){
+            //If we are still iterating, make sure no collisions have already occured with the enemy
+            if(collisionCount > 0){
+                return false;
+            }
+
             //Do we hit another piece?
             if(board.getPiece(piece.currentRow, colIter) != null){
                 var otherPiece = board.getPiece(piece.currentRow, colIter);
                 //Are they the same team, therefore blocked?
-                if(otherPiece.team == piece.team || collisionCount > 0){
+                if(otherPiece.team == piece.team){
                     return false;
                 }
                 else{
@@ -348,11 +375,16 @@ export function verticalCheck(board, piece, move){
 
         //Iterate down starting one move down
         for(rowIter = (piece.currentRow + 1);  rowIter <= move[0];  rowIter++){
+            //If we are still iterating, make sure no collisions have already occured with the enemy
+            if(collisionCount > 0){
+                return false;
+            }
+
             //Do we hit another piece?
             if(board.getPiece(rowIter, piece.currentCol) != null){
                 var otherPiece = board.getPiece(rowIter, piece.currentCol);
                 //Are they the same team, therefore blocked?
-                if(otherPiece.team == piece.team || collisionCount > 0){
+                if(otherPiece.team == piece.team){
                     return false;
                 }
                 else{
@@ -367,11 +399,16 @@ export function verticalCheck(board, piece, move){
 
         //Iterate up starting one move up
         for(rowIter = (piece.currentRow - 1); rowIter >= move[0]; rowIter--){
+            //If we are still iterating, make sure no collisions have already occured with the enemy
+            if(collisionCount > 0){
+                return false;
+            }
+
             //Do we hit another piece?
             if(board.getPiece(rowIter, piece.currentCol) != null){
                 var otherPiece = board.getPiece(rowIter, piece.currentCol);
                 //Are they the same team, therefore blocked?
-                if(otherPiece.team == piece.team || collisionCount > 0){
+                if(otherPiece.team == piece.team){
                     return false;
                 }
                 else{
