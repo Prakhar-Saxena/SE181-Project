@@ -43,7 +43,9 @@ function doSomethingOnClick(id){
         square.style.borderWidth = null;
         let piece = g_game.thisBoard.getPiece(row, col);
         let moves = g_game.thisBoard.getPiece(row, col).calcMove();
+        console.log(moves)
         moves = g_game.thisBoard.validateMoves(piece, moves);
+        console.log(moves)
         //TODO
         //SUBSTITUTING MOVES WITH HARD CODED OPTIONS FOR PAWN position 6 1 based off board
         //tmp test since validatemoves is not implemented yet
@@ -115,7 +117,12 @@ function runMove(target){
   console.log(origin)
   let newSquare = target.id.split("");
   let piece = g_game.thisBoard.getPiece(origin[0], origin[1]);
+  piece.currentRow = parseInt(newSquare[0]);
+  piece.currentCol = parseInt(newSquare[1]);
+  piece.locationMap.push([parseInt(newSquare[0]),parseInt(newSquare[0])]);
+  piece.id =  piece.team.toString() + parseInt(newSquare[0]) + parseInt(newSquare[1]);
   g_game.thisBoard.movePiece(origin[0], origin[1], parseInt(newSquare[0]), parseInt(newSquare[1]))
+  console.log("changes");
   updateBoard();
   if(g_game.currentPlayer){
     g_game.currentPlayer = 0;
@@ -264,8 +271,7 @@ window.onload = function(){
 
 var game = new Game();
 var piece = game.thisBoard.getPiece(1,4);
-//Proves out move logic for right 
+//Proves out move logic for right
 var moves = [ [0,5] , [0,3] , [2,3] , [2,5]];
 var validMoves = game.thisBoard.validateMoves(piece, moves);
 console.log("Valid Moves : " + validMoves);
-
