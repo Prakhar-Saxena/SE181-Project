@@ -73,30 +73,31 @@ export class Board{
      
         //Calc all available moves for piece
         var pieceMoves = piece.calcMove();
+        var validPieceMoves = this.validateMoves(piece, pieceMoves)
 
         //If a move intersects King position then check
-        for(i = 0; i < pieceMoves.length; i++){
-            if(kingPos == pieceMoves[i]){
+        for(i = 0; i < validPieceMoves.length; i++){
+            if(kingPos == validPieceMoves[i]){
                 return true;
             }
         }
-
     }
 
     inCheckMate(king){
      
         var kingMoves = king.calcMove(); //calc King's possible moves
-        numMoves = kingMoves.length;
+        var validKingMoves = this.validateMoves(king, kingMoves);
+        numMoves = validKingMoves.length;
         checkMoves = 0; //Number of moves that result in check
 
         //loop through active pieces, if it's on the opposite team and its moves intersect with king's possible moves, register as check
         for(i = 0; i < this.activePieces.length; i++){ 
             if(this.activePieces[i].team != king.team){
-                for(j = 0; j < kingMoves.length; j++){
-                    var checkBool = this.inCheck(this.activePieces[i], kingMoves[j])
+                for(j = 0; j < validKingMoves.length; j++){
+                    var checkBool = this.inCheck(this.activePieces[i], validKingMoves[j])
                     if(checkBool == true){
                         checkMoves++;
-                        kingMoves.splice(j,1); //if registered as check, remove from list in order to prevent duplicates
+                        validKingMoves.splice(j,1); //if registered as check, remove from list in order to prevent duplicates
                     }
                 }
             }
@@ -166,7 +167,7 @@ export class Board{
     }
 
 
-    //Helperss (Duct Tape)
+    //Helpers (Duct Tape)
 
 
 }
@@ -193,7 +194,6 @@ export function pawnRow(row, rowCount, team){
 
 //Obstruction tests
 
-//I hate this function
 export function diagonalCheck(board, piece, move){
     var iterCount = Math.abs(piece.currentRow - move[0]);
     var iterator;

@@ -7,6 +7,7 @@
     "nodemon": "nodemon ./bin/www",
     "test": "nyc mocha --require @babel/register ./tests",
     "flow": "flow"
+
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
@@ -24,8 +25,8 @@
     "@babel/core": "^7.11.4",
     "@babel/preset-env": "^7.11.0",
     "@babel/register": "^7.10.5",
-    "flow-bin": "^0.132.0",
     "mocha": "^8.1.1",
-    "nyc": "^15.1.0"
+    "nyc": "^15.1.0",
+    "flow-bin": "^0.132.0"
   }
 }

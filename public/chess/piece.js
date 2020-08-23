@@ -15,7 +15,7 @@ export class Piece{
     }
 
     calcMove(){
-        console.log("Wrong use dummy");
+        
     }
 
     getPieceType(){
