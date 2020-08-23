@@ -81,7 +81,7 @@ export class Bishop extends Piece{
         //Return array of tuples with possible coordinates
         for (var i = 1; i < 8; i++){
             possibleMoves.push( [this.currentRow + i, this.currentCol + i] );
-            possibleMoves.push( [this.currentCol - i, this.currentCol - i] );
+            possibleMoves.push( [this.currentRow - i, this.currentCol - i] );
             possibleMoves.push( [this.currentRow + i, this.currentCol - i] );
             possibleMoves.push( [this.currentRow - i, this.currentCol + i] );
         }
@@ -170,7 +170,7 @@ export class Knight extends Piece{
         possibleMoves.push( [this.currentRow - 1, this.currentCol - 2] );
         possibleMoves.push( [this.currentRow - 2, this.currentCol - 1] );
         possibleMoves.push( [this.currentRow - 2, this.currentCol + 1] );
-        return this.filterMoves(ossibleMoves);
+        return this.filterMoves(possibleMoves);
     }
 
     getPieceType(){
