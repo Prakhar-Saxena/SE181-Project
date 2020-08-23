@@ -1,4 +1,4 @@
-// @flow
+
 
 import { Board } from './board.js';
 import * as pieces from './piece.js';
@@ -23,7 +23,6 @@ class Game{
 
 }
 //testing
-//One global game as bubblegum
 var g_game = new Game();
 
 
