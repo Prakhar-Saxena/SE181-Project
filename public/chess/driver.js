@@ -28,8 +28,8 @@ var g_game = new Game();
 
 function doSomethingOnClick(id){
     //add code to check if it's the players turn (differentiate btwn clients)
-    let row = id[0];
-    let col = id[1];
+    let row = parseInt(id[0]);
+    let col = parseInt(id[1]);
     let square = document.getElementById(id);
     //TODO
     //STILL NEED TO ADD ABILITY TO TELL WHEN IT"S THE PLAYERS TURN.
@@ -45,6 +45,26 @@ function doSomethingOnClick(id){
         let piece = g_game.thisBoard.getPiece(row, col);
         let moves = g_game.thisBoard.getPiece(row, col).calcMove();
         moves = g_game.thisBoard.validateMoves(piece, moves);
+        if(piece.getPieceType() == "Pawn"){
+          if(piece.team == 1){
+              if(g_game.thisBoard.isOnBoard(row - 1, col - 1) && g_game.thisBoard.getPiece(row - 1, col - 1) != null && g_game.thisBoard.getPiece(row - 1, col - 1).team != piece.team){
+                moves.push([row - 1, col - 1]);
+              }
+              if(g_game.thisBoard.isOnBoard(row - 1, col + 1) && g_game.thisBoard.getPiece(row - 1, col + 1) != null && g_game.thisBoard.getPiece(row - 1, col + 1).team != piece.team){
+                moves.push([row - 1, col + 1]);
+              }
+          }
+          else{
+            if(g_game.thisBoard.isOnBoard(row + 1, col - 1) && g_game.thisBoard.getPiece(row + 1, col - 1) != null && g_game.thisBoard.getPiece(row + 1, col - 1).team != piece.team){
+              moves.push([row + 1, col - 1]);
+            }
+            if(g_game.thisBoard.isOnBoard(row + 1, col + 1) && g_game.thisBoard.getPiece(row + 1, col + 1) != null && g_game.thisBoard.getPiece(row + 1, col + 1).team != piece.team){
+              moves.push([row + 1, col + 1]);
+            }
+          }
+        }
+        console.log(moves);
+
         //TODO
         //SUBSTITUTING MOVES WITH HARD CODED OPTIONS FOR PAWN position 6 1 based off board
         //tmp test since validatemoves is not implemented yet
@@ -58,11 +78,33 @@ function doSomethingOnClick(id){
       }else if(square.style.borderColor == "green"){
         runMove(square);
       }else if (!hasOrigin()){
+        console.log("testing")
         square.style.borderColor = "white";
         square.style.borderWidth = "medium";
         let piece = g_game.thisBoard.getPiece(row, col);
         let moves = g_game.thisBoard.getPiece(row, col).calcMove();
+        console.log(piece);
         moves = g_game.thisBoard.validateMoves(piece, moves);
+        if(piece.getPieceType() == "Pawn"){
+          if(piece.team == 1){
+              if(g_game.thisBoard.isOnBoard(row - 1, col - 1) && g_game.thisBoard.getPiece(row - 1, col - 1) != null && g_game.thisBoard.getPiece(row - 1, col - 1).team != piece.team){
+                moves.push([row - 1, col - 1]);
+              }
+              if(g_game.thisBoard.isOnBoard(row - 1, col + 1) && g_game.thisBoard.getPiece(row - 1, col + 1) != null && g_game.thisBoard.getPiece(row - 1, col + 1).team != piece.team){
+                moves.push([row - 1, col + 1]);
+              }
+          }
+          else{
+            if(g_game.thisBoard.isOnBoard(row + 1, col - 1) && g_game.thisBoard.getPiece(row + 1, col - 1) != null && g_game.thisBoard.getPiece(row + 1, col - 1).team != piece.team){
+              moves.push([row + 1, col - 1]);
+            }
+            if(g_game.thisBoard.isOnBoard(row + 1, col + 1) && g_game.thisBoard.getPiece(row + 1, col + 1) != null && g_game.thisBoard.getPiece(row + 1, col + 1).team != piece.team){
+              moves.push([row + 1, col + 1]);
+            }
+          }
+        }
+        console.log(moves);
+
         //TODO
         //SUBSTITUTING MOVES WITH HARD CODED OPTIONS FOR PAWN position 6 1 based off board
         //tmp test since validatemoves is not implemented yet
@@ -114,6 +156,7 @@ function runMove(target){
       }
     }
   }
+  console.log("testing")
   console.log("this is origin " + origin)
   let newSquare = target.id.split("");
   let piece = g_game.thisBoard.getPiece(origin[0], origin[1]);
