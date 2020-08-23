@@ -45,13 +45,11 @@ function doSomethingOnClick(id){
         square.style.borderWidth = null;
         let piece = g_game.thisBoard.getPiece(row, col);
         let moves = g_game.thisBoard.getPiece(row, col).calcMove();
-        console.log(moves)
         moves = g_game.thisBoard.validateMoves(piece, moves);
-        console.log(moves)
         //TODO
         //SUBSTITUTING MOVES WITH HARD CODED OPTIONS FOR PAWN position 6 1 based off board
         //tmp test since validatemoves is not implemented yet
-        if(moves != null){
+        if(moves != null && moves.length > 0){
           for(var i = 0; i < moves.length; i++){
               let move = document.getElementById("" + moves[i][0] + moves[i][1]);
               move.style.borderColor = null;
@@ -65,11 +63,12 @@ function doSomethingOnClick(id){
         square.style.borderWidth = "medium";
         let piece = g_game.thisBoard.getPiece(row, col);
         let moves = g_game.thisBoard.getPiece(row, col).calcMove();
+        moves = g_game.thisBoard.validateMoves(piece, moves);
         //TODO
         //SUBSTITUTING MOVES WITH HARD CODED OPTIONS FOR PAWN position 6 1 based off board
         //tmp test since validatemoves is not implemented yet
         //moves = g_game.thisBoard.validateMoves(piece, moves);
-        if(moves != null){
+        if(moves != null && moves.length > 0){
           for(var i = 0; i < moves.length; i++){
               let move = document.getElementById("" + moves[i][0] + moves[i][1]);
               move.style.borderColor = "green";
@@ -116,7 +115,7 @@ function runMove(target){
       }
     }
   }
-  console.log(origin)
+  console.log("this is origin " + origin)
   let newSquare = target.id.split("");
   let piece = g_game.thisBoard.getPiece(origin[0], origin[1]);
   piece.currentRow = parseInt(newSquare[0]);
