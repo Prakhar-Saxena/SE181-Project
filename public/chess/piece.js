@@ -23,7 +23,7 @@ export class Piece{
     }
 
     filterMoves(moves){
-        onBoardMoves = [];
+        let onBoardMoves = [];
         for(var i = 0; i < moves.length; i++){
             if (!(moves[i][0] < 0 || moves[i][1] < 0 || moves[i][0] > 7 || moves[i][1] > 7 )){
                 onBoardMoves.push(moves[i]);
@@ -61,7 +61,7 @@ export class Pawn extends Piece{
             }
         }
 
-        return filterMoves(possibleMoves);
+        return this.filterMoves(possibleMoves);
     }
 
 
@@ -85,7 +85,7 @@ export class Bishop extends Piece{
             possibleMoves.push( [this.currentRow + i, this.currentCol - i] );
             possibleMoves.push( [this.currentRow - i, this.currentCol + i] );
         }
-        return filterMoves(possibleMoves);
+        return this.filterMoves(possibleMoves);
     }
 
     getPieceType(){
@@ -105,11 +105,11 @@ export class Rook extends Piece{
         for (var i = 0; i < 8; i ++){
             if(i != this.currentRow)
                 possibleMoves.push( [i, this.currentCol] );
-            
+
             if(i != this.currentCol)
                 possibleMoves.push( [this.currentRow, i] );
         }
-        return filterMoves(possibleMoves);
+        return this.filterMoves(possibleMoves);
     }
 }
 
@@ -128,7 +128,7 @@ export class Queen extends Piece{
         tempBishop = null;
         tempRook = null;
         let possibleMoves = possibleMovesBishop.concat(possibleMovesRook);
-        return filterMoves((possibleMoves.filter((item, i, ar) => ar.indexOf(item) === i)));
+        return this.filterMoves((possibleMoves.filter((item, i, ar) => ar.indexOf(item) === i)));
     }
 }
 
@@ -149,7 +149,7 @@ export class King extends Piece{
         possibleMoves.push( [this.currentRow - 1  , this.currentCol - 1 ] );
         possibleMoves.push( [this.currentRow - 1  , this.currentCol     ] );
         possibleMoves.push( [this.currentRow - 1  , this.currentCol + 1 ] );
-        return filterMoves(possibleMoves);
+        return this.filterMoves(possibleMoves);
     }
 }
 
@@ -170,7 +170,7 @@ export class Knight extends Piece{
         possibleMoves.push( [this.currentRow - 1, this.currentCol - 2] );
         possibleMoves.push( [this.currentRow - 2, this.currentCol - 1] );
         possibleMoves.push( [this.currentRow - 2, this.currentCol + 1] );
-        return filterMoves(ossibleMoves);
+        return this.filterMoves(ossibleMoves);
     }
 
     getPieceType(){
