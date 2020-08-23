@@ -115,7 +115,7 @@ export class Board{
         if (piece.getPieceType() == "Knight"){
             for (var i = 0; i < moves.length; i++) {
                 if (this.getPiece(moves[i][0], moves[i][1]) == null || this.getPiece(moves[i][0], moves[i][1]).team != piece.team){
-                    validMoves.append(moves[i]);
+                    validMoves.push(moves[i]);
                 }
             }
             return validMoves;
