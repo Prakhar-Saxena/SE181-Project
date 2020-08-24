@@ -86,8 +86,10 @@ function doSomethingOnClick(id){
           }
         }
       }else if(square.style.borderColor == "green"){
+        let newSquare = square.id.split("");
         runMove(square);
-        checkGameStatus();
+        let checkPiece = g_game.thisBoard.getPiece(parseInt(newSquare[0]), parseInt(newSquare[1]));
+        checkGameStatus(checkPiece);
       }else if (!hasOrigin()){
         console.log("testing")
         square.style.borderColor = "white";
@@ -140,9 +142,10 @@ function doSomethingOnClick(id){
         console.log(moves);
       }
     }else if(square.style.borderColor == "green"){
+      let newSquare = square.id.split("");
       runMove(square);
-      console.log("Check status");
-      checkGameStatus();
+      let checkPiece = g_game.thisBoard.getPiece(parseInt(newSquare[0]), parseInt(newSquare[1]));
+      checkGameStatus(checkPiece);
     }else if(g_game.thisBoard.getPiece(row, col) == null){
       console.log("no piece on the square");
     }
@@ -164,21 +167,22 @@ function hasOrigin(){
   return false;
 }
 
-function checkGameStatus(){
-  console.log("hi")
+function checkGameStatus(checkPiece){
+  console.log(checkPiece)
   for (var i = 0; i < 8; i++){
     for (var j = 0; j < 8; j++){
       let piece = g_game.thisBoard.getPiece(i, j);
-      if(piece != null && piece.getPieceType() == "King" && piece.team != g_game.currentPlayer){
+      if(piece != null && piece.getPieceType() == "King" && piece.team == g_game.currentPlayer){
         console.log('hi check test')
+        console.log(piece)
         g_game.thisBoard.inCheckMate(piece);
-        if(g_game.thisBoard.checkMateStatus){
+        if(g_game.thisBoard.inCheck(checkPiece, [i,j]) && g_game.thisBoard.checkMateStatus){
           console.log("Game Over")
           alert('checkmate');
-        }else if(g_game.thisBoard.inCheck(piece, [i,j])){
+        }else if(g_game.thisBoard.inCheck(checkPiece, [i,j])){
           alert('check');
         }
-        console.log(g_game.thisBoard.inCheck(piece, [i,j]));
+        console.log(g_game.thisBoard.inCheck(checkPiece, [i,j]));
         break;
       }
     }

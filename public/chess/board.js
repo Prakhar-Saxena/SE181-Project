@@ -67,7 +67,7 @@ export class Board{
         return true;
     }
 
-    
+
 
 
     inCheck(piece, kingPos){
@@ -78,7 +78,7 @@ export class Board{
 
         //If a move intersects King position then check
         for(var i = 0; i < validPieceMoves.length; i++){
-            if(kingPos == validPieceMoves[i]){
+            if(kingPos[0] == validPieceMoves[i][0] && kingPos[1] == validPieceMoves[i][1]){
                 return true;
                 console.log("King is in check")
             }
@@ -95,15 +95,23 @@ export class Board{
         var numMoves = validKingMoves.length;
         var checkMoves = 0; //Number of moves that result in check
 
-        
+
         //loop through active pieces, if it's on the opposite team and its moves intersect with king's possible moves, register as chec
 
         for(var x = 0; x < 8; x++){
             for(var y = 0; y < 8; y++){
                 if(this.getPiece(x,y) != null && this.getPiece(x,y).team != king.team){
+                    if(this.getPiece(x,y).getPieceType() == "Queen"){
+                      console.log("QUEN TEST")
+                      console.log(this.getPiece(x,y));
+                      console.log("CODEE")
+                      console.log(this.inCheck(this.getPiece(x,y), [king.currentRow, king.currentCol]))
+                      console.log("CODEE")
+                    }
                     for(var j = 0; j < validKingMoves.length; j++){
                         var checkBool = this.inCheck(this.getPiece(x,y), validKingMoves[j])
                         if(checkBool == true){
+                            console.log(this.getPiece(x,y))
                             checkMoves++;
                             validKingMoves.splice(j,1); //if registered as check, remove from list in order to prevent duplicates
                         }
@@ -111,6 +119,8 @@ export class Board{
                 }
             }
         }
+        console.log("NUMBER OF KING MOVES " + numMoves);
+        console.log(checkMoves)
 
         //If all available moves result in check then checkmate
         if(checkMoves == numMoves){
