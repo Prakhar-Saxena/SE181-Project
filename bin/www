@@ -7,6 +7,7 @@
 var app = require('../app');
 var debug = require('debug')('se181-project:server');
 var http = require('http');
+var socketServer = require("../controllers/socket");
 
 /**
  * Get port from environment and store in Express.
@@ -22,15 +23,8 @@ app.set('port', port);
 var server = http.createServer(app);
 
 //Start socket server
-var io = require('socket.io')(server);
-console.log("Hello?")
-io.on('connection', (socket) => {
-  console.log("A user has connected to the server");
-
-  socket.on('disconnect', () =>{
-    console.log("User disconnected")
-  })
-})
+var io = require("socket.io")(server);
+socketServer(io);
 
 /**
  * Listen on provided port, on all network interfaces.
