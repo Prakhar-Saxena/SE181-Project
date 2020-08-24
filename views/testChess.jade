@@ -1,9 +1,27 @@
 extends layout
 
 block content
-  link(rel="stylesheet" href="/css/main.css")
-  h1= Chess
-  p(style='white-space:pre;' id="boardContainer")
-  div(class="board" id="board")
-  script(type="module", src='/chess/driver.js').
-  p Welcome to #{title}
+  div(class="container")
+    div(class="row")
+      div(class="col-md-8")
+        link(rel="stylesheet" href="/css/main.css")
+        h1= Chess
+        p(style='white-space:pre;' id="boardContainer")
+        div(class="board" id="board")
+        script(type="module", src='/chess/driver.js').
+        p Welcome to #{title}
+      div(class="col-md-4")
+        button(type="button", class="btn btn-outline-dark") Create Game
+        div(class="input-group mb-3")
+          div(class="input-group-prepend")
+            span(class="input-group-text", id="inputGroup-sizing-default") Game Name
+          input(type="text", class="form-control", aria-label="Game Name")
+        ul(class="list-group")
+          button(class="list-group-item list-group-item-action") Test1
+          button(class="list-group-item list-group-item-action") Test2
+          button(class="list-group-item list-group-item-action") Test3
+block scripts
+  script(src="/socket.io/socket.io.js")
+      script.
+        var socket = io();
+    
