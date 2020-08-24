@@ -3,7 +3,7 @@
 import { Board } from './board.js';
 import * as pieces from './piece.js';
 
-class Game{
+export class Game{
 
     constructor(){
         this.thisBoard = new Board();
@@ -27,7 +27,7 @@ class Game{
 var g_game = new Game();
 
 
-function doSomethingOnClick(id){
+export function doSomethingOnClick(id){
     //add code to check if it's the players turn (differentiate btwn clients)
     let row = id[0];
     let col = id[1];
@@ -87,7 +87,7 @@ function doSomethingOnClick(id){
 
 }
 
-function hasOrigin(){
+export function hasOrigin(){
   for (var i = 0; i < 8; i++){
     for (var j = 0; j < 8; j++){
       let square = document.getElementById("" + i + j);
@@ -99,7 +99,7 @@ function hasOrigin(){
   return false;
 }
 
-function runMove(target){
+export function runMove(target){
   let origin;
   for (var i = 0; i < 8; i++){
     for (var j = 0; j < 8; j++){
@@ -161,7 +161,7 @@ function buildTable(){
 }
 */
 
-function updateBoard(){
+export function updateBoard(){
     //Make the data match the front end representation
     //IE update pieces to their correct location
     //Note if the initial configuration is changed, this should catch it.
@@ -193,7 +193,7 @@ function updateBoard(){
 }
 
 //Forced by JS to do this after board creation
-function addListeners(){
+export function addListeners(){
     console.log("Adding Listeners");
     for(var row = 0; row < 8; row++){
         for(var col = 0; col < 8; col++){
@@ -205,7 +205,7 @@ function addListeners(){
 }
 
 
-function buildTable(){
+export function buildTable(){
   //team 0 is white, team 1 is black
   console.log("Building Board");
   let isBlack = 1;
