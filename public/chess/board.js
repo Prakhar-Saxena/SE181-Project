@@ -67,22 +67,25 @@ export class Board{
         return true;
     }
 
+    
 
 
     inCheck(piece, kingPos){
 
         //Calc all available moves for piece
         var pieceMoves = piece.calcMove();
-        var validPieceMoves = this.validateMoves(piece, pieceMoves)
+        var validPieceMoves = this.validateMoves(piece, pieceMoves);
 
         //If a move intersects King position then check
         for(var i = 0; i < validPieceMoves.length; i++){
             if(kingPos == validPieceMoves[i]){
                 return true;
+                console.log("King is in check")
             }
         }
 
         return false;
+        console.log("King is not in check")
     }
 
     inCheckMate(king){
@@ -92,24 +95,30 @@ export class Board{
         var numMoves = validKingMoves.length;
         var checkMoves = 0; //Number of moves that result in check
 
-        //loop through active pieces, if it's on the opposite team and its moves intersect with king's possible moves, register as check
-        for(var i = 0; i < this.activePieces.length; i++){
-            if(this.activePieces[i].team != king.team){
-                for(var j = 0; j < validKingMoves.length; j++){
-                    var checkBool = this.inCheck(this.activePieces[i], validKingMoves[j])
-                    if(checkBool == true){
-                        checkMoves++;
-                        validKingMoves.splice(j,1); //if registered as check, remove from list in order to prevent duplicates
+        
+        //loop through active pieces, if it's on the opposite team and its moves intersect with king's possible moves, register as chec
+
+        for(var x = 0; x < 8; x++){
+            for(var y = 0; y < 8; y++){
+                if(this.getPiece(x,y).team != king.team){
+                    for(var j = 0; j < validKingMoves.length; j++){
+                        var checkBool = this.inCheck(this.getPiece(x,y), validKingMoves[j])
+                        if(checkBool == true){
+                            checkMoves++;
+                            validKingMoves.splice(j,1); //if registered as check, remove from list in order to prevent duplicates
+                        }
                     }
                 }
             }
         }
+
         //If all available moves result in check then checkmate
         if(checkMoves == numMoves){
             this.checkMateStatus = true;
+            console.log("King is in checkmate")
         }
-
     }
+
 
     validateMoves(piece, moves){
         var validMoves = [];
