@@ -80,12 +80,24 @@ export class Board{
         for(var i = 0; i < validPieceMoves.length; i++){
             if(kingPos[0] == validPieceMoves[i][0] && kingPos[1] == validPieceMoves[i][1]){
                 return true;
-                console.log("King is in check")
             }
         }
 
         return false;
-        console.log("King is not in check")
+    }
+
+    saveMoveCheck(position){
+        for(var x = 0; x < 8; x++){
+            for(var y = 0; y < 8; y++){
+                if(this.getPiece(x,y) != null && this.getPiece(x,y).team == king.team){
+                    var intersectBool = this.inCheck(this.getPiece(x,y), position)
+                    if(intersectBool == true){
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
     }
 
     inCheckMate(king){
@@ -109,11 +121,14 @@ export class Board{
                       console.log("CODEE")
                     }
                     for(var j = 0; j < validKingMoves.length; j++){
-                        var checkBool = this.inCheck(this.getPiece(x,y), validKingMoves[j])
-                        if(checkBool == true){
-                            console.log(this.getPiece(x,y))
-                            checkMoves++;
-                            validKingMoves.splice(j,1); //if registered as check, remove from list in order to prevent duplicates
+                        var blockable =  this.saveMoveCheck(validKingMoves[j]);
+                        if(blockable != true){
+                            var checkBool = this.inCheck(this.getPiece(x,y), validKingMoves[j])
+                            if(checkBool == true){
+                                console.log(this.getPiece(x,y))
+                                checkMoves++;
+                                validKingMoves.splice(j,1); //if registered as check, remove from list in order to prevent duplicates
+                            }
                         }
                     }
                 }
