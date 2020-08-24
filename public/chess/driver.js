@@ -38,7 +38,6 @@ function doSomethingOnClick(id){
     //TODO
     //change the g_game.currentPlayer in if condition to the client's team. Ensures player can't pick opponent's pieces.
     if(g_game.thisBoard.getPiece(row, col) != null && g_game.thisBoard.getPiece(row, col).team == g_game.currentPlayer){
-      console.log(row + " : " + col);
       if(square.style.borderColor == "white"){
         square.style.borderColor = null;
         square.style.borderWidth = null;
@@ -73,7 +72,6 @@ function doSomethingOnClick(id){
             }
           }
         }
-        console.log(moves);
 
         //TODO
         //SUBSTITUTING MOVES WITH HARD CODED OPTIONS FOR PAWN position 6 1 based off board
@@ -126,7 +124,6 @@ function doSomethingOnClick(id){
             }
           }
         }
-        console.log(moves);
 
         //TODO
         //SUBSTITUTING MOVES WITH HARD CODED OPTIONS FOR PAWN position 6 1 based off board
@@ -139,7 +136,6 @@ function doSomethingOnClick(id){
               move.style.borderWidth = "medium";
           }
         }
-        console.log(moves);
       }
     }else if(square.style.borderColor == "green"){
       let newSquare = square.id.split("");
@@ -169,20 +165,19 @@ function hasOrigin(){
 
 function checkGameStatus(checkPiece){
   console.log(checkPiece)
+  console.log("STATUS BEFORE " + g_game.thisBoard.checkMateStatus)
   for (var i = 0; i < 8; i++){
     for (var j = 0; j < 8; j++){
       let piece = g_game.thisBoard.getPiece(i, j);
       if(piece != null && piece.getPieceType() == "King" && piece.team == g_game.currentPlayer){
-        console.log('hi check test')
-        console.log(piece)
         g_game.thisBoard.inCheckMate(piece);
+        console.log("STATUS VAL " + g_game.thisBoard.checkMateStatus)
         if(g_game.thisBoard.inCheck(checkPiece, [i,j]) && g_game.thisBoard.checkMateStatus){
           console.log("Game Over")
           alert('checkmate');
         }else if(g_game.thisBoard.inCheck(checkPiece, [i,j])){
           alert('check');
         }
-        console.log(g_game.thisBoard.inCheck(checkPiece, [i,j]));
         break;
       }
     }
@@ -204,8 +199,6 @@ function runMove(target){
       }
     }
   }
-  console.log("testing")
-  console.log("this is origin " + origin)
   let newSquare = target.id.split("");
   let piece = g_game.thisBoard.getPiece(origin[0], origin[1]);
   piece.currentRow = parseInt(newSquare[0]);
@@ -213,7 +206,6 @@ function runMove(target){
   piece.locationMap.push([parseInt(newSquare[0]),parseInt(newSquare[0])]);
   piece.id =  piece.team.toString() + parseInt(newSquare[0]) + parseInt(newSquare[1]);
   g_game.thisBoard.movePiece(origin[0], origin[1], parseInt(newSquare[0]), parseInt(newSquare[1]))
-  console.log("changes");
   updateBoard();
   if(g_game.currentPlayer){
     g_game.currentPlayer = 0;
@@ -222,45 +214,6 @@ function runMove(target){
   }
 }
 
-/*
-function buildTable(){
-    console.log("Building Board");
-    var cont = document.getElementById("boardContainer");
-    if(cont == null){
-        throw "Error: No board container found";
-    }
-
-    var alternator = false;
-
-    for(var row = 0; row < 8; row++){
-        for(var col = 0; col < 8; col++){
-            addSquare(alternator, row, col);
-            alternator = !alternator;
-        }
-        cont.innerHTML += "<br>";
-        alternator = !alternator;
-    }
-
-    function addSquare(isBlackSquare, row, col){
-        //New square append it to the board container
-        var squareElem = document.createElement("span");
-        cont.appendChild(squareElem);
-
-        squareElem.id = "" + row + col;
-
-        if(isBlackSquare){
-            let imgElem = document.createElement("img");
-            imgElem.src = "/chess/images/blacksquare.png";
-            squareElem.appendChild(imgElem);
-        }
-        else{
-            let imgElem = document.createElement("img");
-            imgElem.src = "/chess/images/redsquare.png";
-            squareElem.appendChild(imgElem);
-        }
-    }
-}
-*/
 
 function updateBoard(){
     //Make the data match the front end representation
