@@ -44,5 +44,19 @@ describe('board', () => {
 			throw new Error('movePiece error');
 		}
 	})
+	it("inCheck: king is in check", () => {
+		var board = new Board.Board();
+		var rookW = new Pieces.Rook(0,7,1);
+		var kingB = new Pieces.King(0,6,0);
+		var kingW = new Pieces.King(7,4,1);
+		var pawn01B = new Pieces.Pawn(6,5,0);
+		var pawn02B = new Pieces.Pawn(6,6,0);
+		var pawn03B = new Pieces.Pawn(6,7,0);
+		board.initializeBoard();
+		var checkBool = board.inCheck(rookW, [0,6]);
+		if(checkBool == false){
+			throw new Error('inCheck error');
+		}
+	})
 	
 });
