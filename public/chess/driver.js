@@ -1,4 +1,4 @@
-// @flow
+
 
 import { Board } from './board.js';
 import * as pieces from './piece.js';
@@ -8,6 +8,7 @@ export class Game{
     constructor(){
         this.thisBoard = new Board();
         this.currentPlayer = 1;
+        this.isGameDone = false;
         console.log(this.thisBoard.board);
     }
 
@@ -23,33 +24,57 @@ export class Game{
 
 }
 //testing
-//One global game as bubblegum
 var g_game = new Game();
 
 
 export function doSomethingOnClick(id){
     //add code to check if it's the players turn (differentiate btwn clients)
-    let row = id[0];
-    let col = id[1];
+    let row = parseInt(id[0]);
+    let col = parseInt(id[1]);
     let square = document.getElementById(id);
     //TODO
     //STILL NEED TO ADD ABILITY TO TELL WHEN IT"S THE PLAYERS TURN.
     //HARD CODING 1 for now, so when testing in nodemon, it's always your turn
-    if(1){
+    if(1 && !g_game.isGameDone){
     //TODO
     //change the g_game.currentPlayer in if condition to the client's team. Ensures player can't pick opponent's pieces.
     if(g_game.thisBoard.getPiece(row, col) != null && g_game.thisBoard.getPiece(row, col).team == g_game.currentPlayer){
-      console.log(row + " : " + col);
       if(square.style.borderColor == "white"){
         square.style.borderColor = null;
         square.style.borderWidth = null;
         let piece = g_game.thisBoard.getPiece(row, col);
         let moves = g_game.thisBoard.getPiece(row, col).calcMove();
         moves = g_game.thisBoard.validateMoves(piece, moves);
-        //TODO
-        //SUBSTITUTING MOVES WITH HARD CODED OPTIONS FOR PAWN position 6 1 based off board
-        //tmp test since validatemoves is not implemented yet
-        if(moves != null){
+        if(piece.getPieceType() == "Pawn"){
+          if(piece.team == 1){
+            for (var i = 0; i < moves.length; i++) {
+                if (moves[i][0] == (row - 1) && moves[i][1] == col && g_game.thisBoard.getPiece(row - 1, col) != null){
+                    moves.splice(i,1);
+                }
+            }
+              if(g_game.thisBoard.isOnBoard(row - 1, col - 1) && g_game.thisBoard.getPiece(row - 1, col - 1) != null && g_game.thisBoard.getPiece(row - 1, col - 1).team != piece.team){
+                moves.push([row - 1, col - 1]);
+              }
+              if(g_game.thisBoard.isOnBoard(row - 1, col + 1) && g_game.thisBoard.getPiece(row - 1, col + 1) != null && g_game.thisBoard.getPiece(row - 1, col + 1).team != piece.team){
+                moves.push([row - 1, col + 1]);
+              }
+          }
+          else{
+            for (var i = 0; i < moves.length; i++) {
+                if (moves[i][0] == (row + 1) && moves[i][1] == col && g_game.thisBoard.getPiece(row + 1, col) != null){
+                    moves.splice(i,1);
+                }
+            }
+            if(g_game.thisBoard.isOnBoard(row + 1, col - 1) && g_game.thisBoard.getPiece(row + 1, col - 1) != null && g_game.thisBoard.getPiece(row + 1, col - 1).team != piece.team){
+              moves.push([row + 1, col - 1]);
+            }
+            if(g_game.thisBoard.isOnBoard(row + 1, col + 1) && g_game.thisBoard.getPiece(row + 1, col + 1) != null && g_game.thisBoard.getPiece(row + 1, col + 1).team != piece.team){
+              moves.push([row + 1, col + 1]);
+            }
+          }
+        }
+
+        if(moves != null && moves.length > 0){
           for(var i = 0; i < moves.length; i++){
               let move = document.getElementById("" + moves[i][0] + moves[i][1]);
               move.style.borderColor = null;
@@ -57,27 +82,60 @@ export function doSomethingOnClick(id){
           }
         }
       }else if(square.style.borderColor == "green"){
+        let newSquare = square.id.split("");
         runMove(square);
+        let checkPiece = g_game.thisBoard.getPiece(parseInt(newSquare[0]), parseInt(newSquare[1]));
+        checkGameStatus(checkPiece);
       }else if (!hasOrigin()){
+        console.log("testing")
         square.style.borderColor = "white";
         square.style.borderWidth = "medium";
         let piece = g_game.thisBoard.getPiece(row, col);
         let moves = g_game.thisBoard.getPiece(row, col).calcMove();
-        //TODO
-        //SUBSTITUTING MOVES WITH HARD CODED OPTIONS FOR PAWN position 6 1 based off board
-        //tmp test since validatemoves is not implemented yet
-        //moves = g_game.thisBoard.validateMoves(piece, moves);
-        if(moves != null){
+        console.log(piece);
+        moves = g_game.thisBoard.validateMoves(piece, moves);
+        if(piece.getPieceType() == "Pawn"){
+          if(piece.team == 1){
+            for (var i = 0; i < moves.length; i++) {
+                if (moves[i][0] == (row - 1) && moves[i][1] == col && g_game.thisBoard.getPiece(row - 1, col) != null){
+                    moves.splice(i,1);
+                }
+            }
+              if(g_game.thisBoard.isOnBoard(row - 1, col - 1) && g_game.thisBoard.getPiece(row - 1, col - 1) != null && g_game.thisBoard.getPiece(row - 1, col - 1).team != piece.team){
+                moves.push([row - 1, col - 1]);
+              }
+              if(g_game.thisBoard.isOnBoard(row - 1, col + 1) && g_game.thisBoard.getPiece(row - 1, col + 1) != null && g_game.thisBoard.getPiece(row - 1, col + 1).team != piece.team){
+                moves.push([row - 1, col + 1]);
+              }
+          }
+          else{
+            for (var i = 0; i < moves.length; i++) {
+                if (moves[i][0] == (row + 1) && moves[i][1] == col && g_game.thisBoard.getPiece(row + 1, col) != null){
+                    moves.splice(i,1);
+                }
+            }
+            if(g_game.thisBoard.isOnBoard(row + 1, col - 1) && g_game.thisBoard.getPiece(row + 1, col - 1) != null && g_game.thisBoard.getPiece(row + 1, col - 1).team != piece.team){
+              moves.push([row + 1, col - 1]);
+            }
+            if(g_game.thisBoard.isOnBoard(row + 1, col + 1) && g_game.thisBoard.getPiece(row + 1, col + 1) != null && g_game.thisBoard.getPiece(row + 1, col + 1).team != piece.team){
+              moves.push([row + 1, col + 1]);
+            }
+          }
+        }
+
+        if(moves != null && moves.length > 0){
           for(var i = 0; i < moves.length; i++){
               let move = document.getElementById("" + moves[i][0] + moves[i][1]);
               move.style.borderColor = "green";
               move.style.borderWidth = "medium";
           }
         }
-        console.log(moves);
       }
     }else if(square.style.borderColor == "green"){
+      let newSquare = square.id.split("");
       runMove(square);
+      let checkPiece = g_game.thisBoard.getPiece(parseInt(newSquare[0]), parseInt(newSquare[1]));
+      checkGameStatus(checkPiece);
     }else if(g_game.thisBoard.getPiece(row, col) == null){
       console.log("no piece on the square");
     }
@@ -99,7 +157,29 @@ export function hasOrigin(){
   return false;
 }
 
-export function runMove(target){
+function checkGameStatus(checkPiece){
+  console.log(checkPiece)
+  console.log("STATUS BEFORE " + g_game.thisBoard.checkMateStatus)
+  for (var i = 0; i < 8; i++){
+    for (var j = 0; j < 8; j++){
+      let piece = g_game.thisBoard.getPiece(i, j);
+      if(piece != null && piece.getPieceType() == "King" && piece.team == g_game.currentPlayer){
+        g_game.thisBoard.inCheckMate(piece);
+        console.log("STATUS VAL " + g_game.thisBoard.checkMateStatus)
+        if(g_game.thisBoard.inCheck(checkPiece, [i,j]) && g_game.thisBoard.checkMateStatus){
+          console.log("Game Over")
+          g_game.isGameDone = true;
+          alert('checkmate');
+        }else if(g_game.thisBoard.inCheck(checkPiece, [i,j])){
+          alert('check');
+        }
+        break;
+      }
+    }
+  }
+}
+
+function runMove(target){
   let origin;
   for (var i = 0; i < 8; i++){
     for (var j = 0; j < 8; j++){
@@ -114,57 +194,23 @@ export function runMove(target){
       }
     }
   }
-  console.log(origin)
   let newSquare = target.id.split("");
   let piece = g_game.thisBoard.getPiece(origin[0], origin[1]);
+  piece.currentRow = parseInt(newSquare[0]);
+  piece.currentCol = parseInt(newSquare[1]);
+  piece.locationMap.push([parseInt(newSquare[0]),parseInt(newSquare[0])]);
+  piece.id =  piece.team.toString() + parseInt(newSquare[0]) + parseInt(newSquare[1]);
   g_game.thisBoard.movePiece(origin[0], origin[1], parseInt(newSquare[0]), parseInt(newSquare[1]))
   updateBoard();
+  if(g_game.currentPlayer){
+    g_game.currentPlayer = 0;
+  }else{
+    g_game.currentPlayer = 1;
+  }
 }
 
-/*
-function buildTable(){
-    console.log("Building Board");
-    var cont = document.getElementById("boardContainer");
-    if(cont == null){
-        throw "Error: No board container found";
-    }
 
-    var alternator = false;
-
-    for(var row = 0; row < 8; row++){
-        for(var col = 0; col < 8; col++){
-            addSquare(alternator, row, col);
-            alternator = !alternator;
-        }
-        cont.innerHTML += "<br>";
-        alternator = !alternator;
-    }
-
-    function addSquare(isBlackSquare, row, col){
-        //New square append it to the board container
-        var squareElem = document.createElement("span");
-        cont.appendChild(squareElem);
-
-        squareElem.id = "" + row + col;
-
-        if(isBlackSquare){
-            let imgElem = document.createElement("img");
-            imgElem.src = "/chess/images/blacksquare.png";
-            squareElem.appendChild(imgElem);
-        }
-        else{
-            let imgElem = document.createElement("img");
-            imgElem.src = "/chess/images/redsquare.png";
-            squareElem.appendChild(imgElem);
-        }
-    }
-}
-*/
-
-export function updateBoard(){
-    //Make the data match the front end representation
-    //IE update pieces to their correct location
-    //Note if the initial configuration is changed, this should catch it.
+function updateBoard(){
     console.log("board updating")
     for (var i = 0; i < 8; i++){
       for (var j = 0; j < 8; j++){
@@ -240,17 +286,6 @@ export function buildTable(){
   }
 }
 
-/*
-var game = new Game();
-var piece = game.thisBoard.getPiece(1,0);
-//Proves out move logic for right
-var moves = [ [1,2] , [1,3] , [1,5] ];
-var validMoves = game.thisBoard.validateMoves(piece, moves);
-console.log(validMoves);
-*/
-
-//console.log(document.getElementById("00"));
-
 window.onload = function(){
     buildTable();
     updateBoard();
@@ -258,11 +293,11 @@ window.onload = function(){
     //document.getElementById("60").innerHTML += '<img src="/chess/images/pawn.png">';
 }
 
-
+/*
 var game = new Game();
 var piece = game.thisBoard.getPiece(1,4);
-//Proves out move logic for right 
+//Proves out move logic for right
 var moves = [ [0,5] , [0,3] , [2,3] , [2,5]];
 var validMoves = game.thisBoard.validateMoves(piece, moves);
 console.log("Valid Moves : " + validMoves);
-
+*/

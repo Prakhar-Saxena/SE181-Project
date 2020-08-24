@@ -15,11 +15,21 @@ export class Piece{
     }
 
     calcMove(){
-        console.log("Wrong use dummy");
+
     }
 
     getPieceType(){
         return "None";
+    }
+
+    filterMoves(moves){
+        let onBoardMoves = [];
+        for(var i = 0; i < moves.length; i++){
+            if (!(moves[i][0] < 0 || moves[i][1] < 0 || moves[i][0] > 7 || moves[i][1] > 7 )){
+                onBoardMoves.push(moves[i]);
+            }
+        }
+        return onBoardMoves;
     }
 
 }
@@ -51,7 +61,7 @@ export class Pawn extends Piece{
             }
         }
 
-        return possibleMoves;
+        return this.filterMoves(possibleMoves);
     }
 
 
@@ -69,13 +79,13 @@ export class Bishop extends Piece{
         var possibleMoves = [];
         console.log("Bishop Move Calc");
         //Return array of tuples with possible coordinates
-        for (var i = 0; i < 8; i++){
+        for (var i = 1; i < 8; i++){
             possibleMoves.push( [this.currentRow + i, this.currentCol + i] );
-            possibleMoves.push( [this.currentCol - i, this.currentCol - i] );
+            possibleMoves.push( [this.currentRow - i, this.currentCol - i] );
             possibleMoves.push( [this.currentRow + i, this.currentCol - i] );
             possibleMoves.push( [this.currentRow - i, this.currentCol + i] );
         }
-        return possibleMoves;
+        return this.filterMoves(possibleMoves);
     }
 
     getPieceType(){
@@ -93,10 +103,16 @@ export class Rook extends Piece{
         //Return array of tuples with possible coordinates
         var possibleMoves = [];
         for (var i = 0; i < 8; i ++){
-            possibleMoves.push( [i, this.currentCol] );
-            possibleMoves.push( [this.currentRow, i] );
+            if(i != this.currentRow)
+                possibleMoves.push( [i, this.currentCol] );
+
+            if(i != this.currentCol)
+                possibleMoves.push( [this.currentRow, i] );
         }
-        return possibleMoves;
+        return this.filterMoves(possibleMoves);
+    }
+    getPieceType(){
+        return "Rook";
     }
 }
 
@@ -115,7 +131,10 @@ export class Queen extends Piece{
         tempBishop = null;
         tempRook = null;
         let possibleMoves = possibleMovesBishop.concat(possibleMovesRook);
-        return (possibleMoves.filter((item, i, ar) => ar.indexOf(item) === i));
+        return this.filterMoves((possibleMoves.filter((item, i, ar) => ar.indexOf(item) === i)));
+    }
+    getPieceType(){
+        return "Queen";
     }
 }
 
@@ -136,7 +155,10 @@ export class King extends Piece{
         possibleMoves.push( [this.currentRow - 1  , this.currentCol - 1 ] );
         possibleMoves.push( [this.currentRow - 1  , this.currentCol     ] );
         possibleMoves.push( [this.currentRow - 1  , this.currentCol + 1 ] );
-        return possibleMoves;
+        return this.filterMoves(possibleMoves);
+    }
+    getPieceType(){
+        return "King";
     }
 }
 
@@ -157,7 +179,11 @@ export class Knight extends Piece{
         possibleMoves.push( [this.currentRow - 1, this.currentCol - 2] );
         possibleMoves.push( [this.currentRow - 2, this.currentCol - 1] );
         possibleMoves.push( [this.currentRow - 2, this.currentCol + 1] );
-        return possibleMoves;
+        return this.filterMoves(possibleMoves);
+    }
+
+    getPieceType(){
+        return "Knight";
     }
 }
 
