@@ -114,10 +114,11 @@ export class Board{
             for(var y = 0; y < 8; y++){
                 if(this.getPiece(x,y) != null && this.getPiece(x,y).team != king.team){
                     for(var j = 0; j < validKingMoves.length; j++){
-                        var blockable =  this.saveMoveCheck(validKingMoves[j], king);
-                        if(blockable != true){
-                            var checkBool = this.inCheck(this.getPiece(x,y), validKingMoves[j])
-                            if(checkBool == true){
+                        var checkBool = this.inCheck(this.getPiece(x,y), validKingMoves[j])
+                        if(checkBool == true){
+                            var blockable =  this.saveMoveCheck(validKingMoves[j], king);
+                            var takeable = this.inCheck(king, validKingMoves[j]);
+                            if(blockable != true && takeable != true){
                                 console.log(this.getPiece(x,y))
                                 checkMoves++;
                                 validKingMoves.splice(j,1); //if registered as check, remove from list in order to prevent duplicates
@@ -127,7 +128,6 @@ export class Board{
                 }
             }
         }
-
         //If all available moves result in check then checkmate
         if(checkMoves == numMoves){
             this.checkMateStatus = true;
