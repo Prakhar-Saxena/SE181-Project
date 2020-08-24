@@ -100,7 +100,7 @@ export class Board{
 
         for(var x = 0; x < 8; x++){
             for(var y = 0; y < 8; y++){
-                if(this.getPiece(x,y).team != king.team){
+                if(this.getPiece(x,y) != null && this.getPiece(x,y).team != king.team){
                     for(var j = 0; j < validKingMoves.length; j++){
                         var checkBool = this.inCheck(this.getPiece(x,y), validKingMoves[j])
                         if(checkBool == true){
