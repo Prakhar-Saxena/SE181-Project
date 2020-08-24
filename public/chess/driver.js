@@ -8,6 +8,7 @@ class Game{
     constructor(){
         this.thisBoard = new Board();
         this.currentPlayer = 1;
+        this.isGameDone = false;
         console.log(this.thisBoard.board);
     }
 
@@ -34,7 +35,7 @@ function doSomethingOnClick(id){
     //TODO
     //STILL NEED TO ADD ABILITY TO TELL WHEN IT"S THE PLAYERS TURN.
     //HARD CODING 1 for now, so when testing in nodemon, it's always your turn
-    if(1){
+    if(1 && !g_game.isGameDone){
     //TODO
     //change the g_game.currentPlayer in if condition to the client's team. Ensures player can't pick opponent's pieces.
     if(g_game.thisBoard.getPiece(row, col) != null && g_game.thisBoard.getPiece(row, col).team == g_game.currentPlayer){
@@ -73,9 +74,6 @@ function doSomethingOnClick(id){
           }
         }
 
-        //TODO
-        //SUBSTITUTING MOVES WITH HARD CODED OPTIONS FOR PAWN position 6 1 based off board
-        //tmp test since validatemoves is not implemented yet
         if(moves != null && moves.length > 0){
           for(var i = 0; i < moves.length; i++){
               let move = document.getElementById("" + moves[i][0] + moves[i][1]);
@@ -125,10 +123,6 @@ function doSomethingOnClick(id){
           }
         }
 
-        //TODO
-        //SUBSTITUTING MOVES WITH HARD CODED OPTIONS FOR PAWN position 6 1 based off board
-        //tmp test since validatemoves is not implemented yet
-        //moves = g_game.thisBoard.validateMoves(piece, moves);
         if(moves != null && moves.length > 0){
           for(var i = 0; i < moves.length; i++){
               let move = document.getElementById("" + moves[i][0] + moves[i][1]);
@@ -174,6 +168,7 @@ function checkGameStatus(checkPiece){
         console.log("STATUS VAL " + g_game.thisBoard.checkMateStatus)
         if(g_game.thisBoard.inCheck(checkPiece, [i,j]) && g_game.thisBoard.checkMateStatus){
           console.log("Game Over")
+          g_game.isGameDone = true;
           alert('checkmate');
         }else if(g_game.thisBoard.inCheck(checkPiece, [i,j])){
           alert('check');
@@ -216,9 +211,6 @@ function runMove(target){
 
 
 function updateBoard(){
-    //Make the data match the front end representation
-    //IE update pieces to their correct location
-    //Note if the initial configuration is changed, this should catch it.
     console.log("board updating")
     for (var i = 0; i < 8; i++){
       for (var j = 0; j < 8; j++){
@@ -294,17 +286,6 @@ function buildTable(){
   }
 }
 
-/*
-var game = new Game();
-var piece = game.thisBoard.getPiece(1,0);
-//Proves out move logic for right
-var moves = [ [1,2] , [1,3] , [1,5] ];
-var validMoves = game.thisBoard.validateMoves(piece, moves);
-console.log(validMoves);
-*/
-
-//console.log(document.getElementById("00"));
-
 window.onload = function(){
     buildTable();
     updateBoard();
@@ -312,10 +293,11 @@ window.onload = function(){
     //document.getElementById("60").innerHTML += '<img src="/chess/images/pawn.png">';
 }
 
-
+/*
 var game = new Game();
 var piece = game.thisBoard.getPiece(1,4);
 //Proves out move logic for right
 var moves = [ [0,5] , [0,3] , [2,3] , [2,5]];
 var validMoves = game.thisBoard.validateMoves(piece, moves);
 console.log("Valid Moves : " + validMoves);
+*/
