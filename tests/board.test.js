@@ -36,5 +36,13 @@ describe('board', () => {
 			throw new Error('isOnBoard error');
 		}
 	})
+	it("movePiece: Piece should be moved", () => {
+		var board = new Board.Board();
+		board.initializeBoard();
+		board.movePiece(0,0,4,4);
+		if(board.getPiece(4,4) == null){
+			throw new Error('movePiece error');
+		}
+	})
 	
 });
