@@ -107,6 +107,8 @@ export class Board{
         var numMoves = validKingMoves.length;
         var checkMoves = 0; //Number of moves that result in check
 
+        
+
 
         //loop through active pieces, if it's on the opposite team and its moves intersect with king's possible moves, register as chec
 
@@ -116,18 +118,19 @@ export class Board{
                     for(var j = 0; j < validKingMoves.length; j++){
                         var checkBool = this.inCheck(this.getPiece(x,y), validKingMoves[j])
                         if(checkBool == true){
-                            var blockable =  this.saveMoveCheck(validKingMoves[j], king);
-                            var takeable = this.inCheck(king, validKingMoves[j]);
-                            if(blockable != true && takeable != true){
-                                console.log(this.getPiece(x,y))
-                                checkMoves++;
-                                validKingMoves.splice(j,1); //if registered as check, remove from list in order to prevent duplicates
-                            }
+                            console.log(this.getPiece(x,y))
+                            checkMoves++;
+                            validKingMoves.splice(j,1); //if registered as check, remove from list in order to prevent duplicates
                         }
                     }
                 }
             }
         }
+
+        console.log("Num Moves: " + numMoves);
+        console.log("Check Moves: " + checkMoves);
+
+
         //If all available moves result in check then checkmate
         if(checkMoves == numMoves){
             this.checkMateStatus = true;

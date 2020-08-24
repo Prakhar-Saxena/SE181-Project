@@ -164,14 +164,15 @@ function checkGameStatus(checkPiece){
     for (var j = 0; j < 8; j++){
       let piece = g_game.thisBoard.getPiece(i, j);
       if(piece != null && piece.getPieceType() == "King" && piece.team == g_game.currentPlayer){
-        g_game.thisBoard.inCheckMate(piece);
-        console.log("STATUS VAL " + g_game.thisBoard.checkMateStatus)
-        if(g_game.thisBoard.inCheck(checkPiece, [i,j]) && g_game.thisBoard.checkMateStatus){
-          console.log("Game Over")
-          g_game.isGameDone = true;
-          alert('checkmate');
-        }else if(g_game.thisBoard.inCheck(checkPiece, [i,j])){
+        if(g_game.thisBoard.inCheck(checkPiece, [i,j])){
           alert('check');
+          g_game.thisBoard.inCheckMate(piece);
+          console.log("STATUS VAL " + g_game.thisBoard.checkMateStatus)
+          if(g_game.thisBoard.checkMateStatus){
+            console.log("Game Over")
+            g_game.isGameDone = true;
+            alert('checkmate');
+          }
         }
         break;
       }
