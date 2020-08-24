@@ -113,13 +113,6 @@ export class Board{
         for(var x = 0; x < 8; x++){
             for(var y = 0; y < 8; y++){
                 if(this.getPiece(x,y) != null && this.getPiece(x,y).team != king.team){
-                    if(this.getPiece(x,y).getPieceType() == "Queen"){
-                      console.log("QUEN TEST")
-                      console.log(this.getPiece(x,y));
-                      console.log("CODEE")
-                      console.log(this.inCheck(this.getPiece(x,y), [king.currentRow, king.currentCol]))
-                      console.log("CODEE")
-                    }
                     for(var j = 0; j < validKingMoves.length; j++){
                         var blockable =  this.saveMoveCheck(validKingMoves[j]);
                         if(blockable != true){
@@ -134,13 +127,13 @@ export class Board{
                 }
             }
         }
-        console.log("NUMBER OF KING MOVES " + numMoves);
-        console.log(checkMoves)
 
         //If all available moves result in check then checkmate
         if(checkMoves == numMoves){
             this.checkMateStatus = true;
             console.log("King is in checkmate")
+        }else{
+          this.checkMateStatus = false;
         }
     }
 
